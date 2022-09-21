@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         //MOi
         //Moi
         //Testi merge
+        //Testi pull reg
 
     }
 }
