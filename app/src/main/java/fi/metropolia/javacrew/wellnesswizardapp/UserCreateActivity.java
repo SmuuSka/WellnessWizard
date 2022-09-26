@@ -65,6 +65,7 @@ public class UserCreateActivity extends AppCompatActivity {
                 System.out.println(uusiKayttaja.toString());
                 System.out.println(personName + personAge + personHeight + personWeight + personGender);
                 saveData(uusiKayttaja);
+                //Testi load old Henkilo
                 Henkilo ladattu = loadData();
                 System.out.println(ladattu + " ladattu 60 sekunnissa");
             }
@@ -86,6 +87,7 @@ public class UserCreateActivity extends AppCompatActivity {
     }
 
     private Henkilo loadData() {
+        //Load object
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefPut.getString("Henkilo", null);
