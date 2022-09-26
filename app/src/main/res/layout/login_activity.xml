@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewWelcome" />
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/enterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="84dp"
@@ -61,7 +61,7 @@
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="84dp"
         android:layout_marginBottom="184dp"
         android:text="Sign up"
         app:layout_constraintBottom_toBottomOf="parent"
