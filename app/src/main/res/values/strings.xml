@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WellnessWizardApp</string>
+    <string name="welcome_n_please_insert_info">Welcome\n please insert your personal data</string>
 </resources>
