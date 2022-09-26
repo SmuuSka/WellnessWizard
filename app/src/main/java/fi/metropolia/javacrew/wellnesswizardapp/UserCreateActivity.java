@@ -1,22 +1,16 @@
 package fi.metropolia.javacrew.wellnesswizardapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UserCreateActivity extends AppCompatActivity {
 
@@ -50,11 +44,9 @@ public class UserCreateActivity extends AppCompatActivity {
 
         Button send = findViewById(R.id.buttonSendData);
         send.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 //save data and move to next activity.
-
                 personName = name.getText().toString();
                 personGender = gender.getText().toString();
                 personAge = Integer.parseInt(age.getText().toString());
@@ -62,8 +54,6 @@ public class UserCreateActivity extends AppCompatActivity {
                 personWeight = Double.parseDouble(weight.getText().toString());
 
                 Henkilo uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight, personGender);
-                System.out.println(uusiKayttaja.toString());
-                System.out.println(personName + personAge + personHeight + personWeight + personGender);
                 saveData(uusiKayttaja);
                 //Testi load old Henkilo
                 Henkilo ladattu = loadData();
@@ -82,8 +72,7 @@ public class UserCreateActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(henkilo);
         prefEditor.putString("Henkilo", json);
-        System.out.println(json);
-        prefEditor.commit();
+        prefEditor.apply();
     }
 
     private Henkilo loadData() {
@@ -91,8 +80,7 @@ public class UserCreateActivity extends AppCompatActivity {
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefPut.getString("Henkilo", null);
-        Henkilo person = gson.fromJson(json, Henkilo.class);
-        System.out.println(json + " load data json");
+        person = gson.fromJson(json, Henkilo.class);
         return person;
     }
 }
