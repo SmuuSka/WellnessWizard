@@ -14,12 +14,19 @@ import android.widget.Toast;
 
 import fi.metropolia.javacrew.wellnesswizardapp.R;
 
-public class StepCounterActivity extends AppCompatActivity implements SensorEventListener {
+public class StepCounterActivity extends AppCompatActivity {
+
+    public static final StepCounterActivity stepInstance = new StepCounterActivity();
+
+    public static StepCounterActivity getInstance(){
+        return stepInstance;
+    }
 
     private SensorManager sensorManager;
     private  boolean moving = false;
     private  float totalSteps = 0f;
-    private float previousSteps = 0f;
+    //private float previousSteps = 0f;
+    //private Sensor stepSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,37 +34,35 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
         setContentView(fi.metropolia.javacrew.wellnesswizardapp.R.layout.activity_step_counter);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
+            moving = true;
+        }else {
+            System.out.println("KAIKKI PASKANA!");
+            moving = false;
+        }
+
+        totalSteps = 1f;
+
+
+    }
+
+    public void StartCounting(){
+
+
+
+        //totalSteps = 2f;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        moving = true;
-        Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-
-        if(stepSensor == null){
-            Toast.makeText(this, "No Sensor Detected in This Device!", Toast.LENGTH_SHORT).show();
-        }else {
-            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
-        }
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        if(moving){
-            totalSteps = sensorEvent.values[0];
-            float currentSteps = totalSteps - previousSteps;
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
+            Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            TestCounter.getInstance().setStepSensor(stepSensor);
+            sensorManager.registerListener(TestCounter.getInstance(), stepSensor, SensorManager.SENSOR_DELAY_UI);
         }
 
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
 
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
 }
