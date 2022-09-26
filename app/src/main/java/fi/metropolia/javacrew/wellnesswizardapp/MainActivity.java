@@ -11,13 +11,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //testi
-        //MOi
-        //Moi
-        //Testi merge
-        //Testi pull reg
-        //Turokin täällä testailee!!!!
-        //Vielä yks pull reg
-
     }
 }
