@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+/**
+ * Tassa on javaDoc
+ * @tristan
+ * version 0.1
+ * */
 
 
 public class Henkilo {
@@ -43,7 +48,7 @@ public class Henkilo {
             System.out.println("Päivämäärä " + entry.getKey() + " nukuttu " + entry.getValue() + " tuntia" );
         }
     }
-    
+
 
     public String getNimi() {
         return nimi;
