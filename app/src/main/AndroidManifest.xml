@@ -16,19 +16,19 @@
         android:theme="@style/Theme.WellnessWizardApp"
         tools:targetApi="31">
 
-        <activity
-            android:name=".stepCounter.StepCounterActivity"
-            android:exported="false" />
-<!--        <activity
-            android:name="r.StepCounter"
-            android:exported="false" />
-        <activity
-            android:name=".Step"
-            android:exported="false" />-->
-        <activity
-            android:name=".recipe.RecipeDetailActivity"
-            android:exported="false"
-            android:parentActivityName=".recipe.RecipeLibraryActivity" />
+<!--        <activity-->
+<!--            android:name=".stepCounter.StepCounterActivity"-->
+<!--            android:exported="false" />-->
+<!--&lt;!&ndash;        <activity-->
+<!--            android:name="r.StepCounter"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".Step"-->
+<!--            android:exported="false" />&ndash;&gt;-->
+<!--        <activity-->
+<!--            android:name=".recipe.RecipeDetailActivity"-->
+<!--            android:exported="false"-->
+<!--            android:parentActivityName=".recipe.RecipeLibraryActivity" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true">
