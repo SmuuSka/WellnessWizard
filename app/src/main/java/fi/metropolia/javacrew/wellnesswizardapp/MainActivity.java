@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
+import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = null;
                 switch (item.getItemId()){
                     case R.id.exercise:
-                        intent = new Intent(MainActivity.this, StepCounterActivity.class);
+                        intent = new Intent(MainActivity.this, TrainingSessionsLibraryActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.receipt:
                         intent = new Intent(MainActivity.this, RecipeLibraryActivity.class);
+                        startActivity(intent);
                         break;
                 }
                 return true;

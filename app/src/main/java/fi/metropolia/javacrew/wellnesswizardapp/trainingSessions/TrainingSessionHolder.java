@@ -16,10 +16,12 @@ public class TrainingSessionHolder {
     private TrainingSessionHolder(){
 
         trainings.add(new TrainingSession("Juoksu", 567));
+        trainings.add(new TrainingSession("Kävely", 56007));
 
     }
 
     public List<TrainingSession> getTraining(){
+
         return trainings;
     }
 

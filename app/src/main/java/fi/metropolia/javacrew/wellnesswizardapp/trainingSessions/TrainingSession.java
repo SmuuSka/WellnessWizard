@@ -1,9 +1,12 @@
 package fi.metropolia.javacrew.wellnesswizardapp.trainingSessions;
 
+import android.media.Image;
+
 public class TrainingSession {
 
     private String trainingName;
     private int caloriesPerTraining;
+    private Image trainingImage;
 
     public TrainingSession(String nameOfTraining, int calories){
         this.trainingName = nameOfTraining;
@@ -15,6 +18,10 @@ public class TrainingSession {
     }
     public int getCalories(){
         return caloriesPerTraining;
+    }
+
+    public String toString(){
+        return this.trainingName;
     }
 
 }
