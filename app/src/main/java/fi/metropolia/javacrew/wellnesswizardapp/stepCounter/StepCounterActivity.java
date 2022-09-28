@@ -4,15 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.widget.Toast;
-
-
-import fi.metropolia.javacrew.wellnesswizardapp.R;
 
 public class StepCounterActivity extends AppCompatActivity {
 
@@ -58,8 +51,8 @@ public class StepCounterActivity extends AppCompatActivity {
         super.onResume();
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
             Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            TestCounter.getInstance().setStepSensor(stepSensor);
-            sensorManager.registerListener(TestCounter.getInstance(), stepSensor, SensorManager.SENSOR_DELAY_UI);
+            StepsCounter.getInstance().setStepSensor(stepSensor);
+            sensorManager.registerListener(StepsCounter.getInstance(), stepSensor, SensorManager.SENSOR_DELAY_UI);
         }
 
     }

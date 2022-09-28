@@ -4,16 +4,16 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
-public class TestCounter implements SensorEventListener {
-    private static TestCounter instance;
+public class StepsCounter implements SensorEventListener {
+    private static StepsCounter instance;
 
-    public static TestCounter getInstance() {
+    public static StepsCounter getInstance() {
         if (instance == null)
-            instance = new TestCounter();
+            instance = new StepsCounter();
         return instance;
     }
 
-    private TestCounter() {
+    private StepsCounter() {
     }
 
     private float steps = 0;

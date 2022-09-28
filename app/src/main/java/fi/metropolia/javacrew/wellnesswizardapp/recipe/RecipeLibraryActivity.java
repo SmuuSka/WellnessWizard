@@ -22,33 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fi.metropolia.javacrew.wellnesswizardapp.R;
-import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.TestCounter;
+import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 
 public class RecipeLibraryActivity extends AppCompatActivity {
 
     public static final String EXTRA_RECIPE = "fi.metropolia.javacrew.wellnesswizardapp.MESSAGE";
 
-    //stepcounterille
-
-    private TextView stepsTextView;
-    private  boolean moving = false;
-    private SensorManager sensorManager;
-    private Sensor stepSensor;
-
-    private ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    // Permission is granted. Continue the action or workflow in your
-                    // app.
-                } else {
-                    // Explain to the user that the feature is unavailable because the
-                    // features requires a permission that the user has denied. At the
-                    // same time, respect the user's decision. Don't link to system
-                    // settings in an effort to convince the user to change their
-                    // decision.
-                }
-            });
 
 
     @Override
@@ -61,10 +40,7 @@ public class RecipeLibraryActivity extends AppCompatActivity {
         ListView listViewRecipes = findViewById(R.id.listView_Recipes);
         listViewRecipes.setAdapter(new ArrayAdapter<Recipe>(this, R.layout.recipe_item, RecipeInfoHolder.getInstance().getResipes()));
 
-        stepsTextView = findViewById(R.id.textView_StepCounterAmount);
-        float steps = TestCounter.getInstance().getSteps();
 
-        stepsTextView.setText(Float.toString(steps));
 
 
         listViewRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,23 +55,6 @@ public class RecipeLibraryActivity extends AppCompatActivity {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACTIVITY_RECOGNITION) ==
-                PackageManager.PERMISSION_DENIED) {
-            requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION);
-        }
-
-
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
-            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            moving = true;
-            System.out.println("SENSORI LÖYDETTY!!");
-        }else {
-            System.out.println("KAIKKI PASKANA!");
-            moving = false;
-        }
-
     }
 
     private List<Recipe> recipes(){
@@ -107,28 +66,13 @@ public class RecipeLibraryActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(stepSensor != null){
-            TestCounter.getInstance().setStepSensor(stepSensor);
-            sensorManager.registerListener(TestCounter.getInstance(), stepSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        }
-
-    }
-
     public void showSteps(View view) {
 
-        float currentSteps = TestCounter.getInstance().getSteps();
-        stepsTextView = findViewById(R.id.textView_StepCounterAmount);
-        stepsTextView.setText(Float.toString(currentSteps));
+
 
     }
 
     public void resetSteps(View view) {
-        //float currentSteps = StepCounterActivity.getInstance().resetSteps();
-        //StepCounterActivity.getInstance().StartCounting();
-        stepsTextView = findViewById(R.id.textView_StepCounterAmount);
-        stepsTextView.setText(Float.toString(TestCounter.getInstance().resetSteps()));
+
     }
 }
