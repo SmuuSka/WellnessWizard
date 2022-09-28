@@ -25,10 +25,14 @@
 <!--        <activity-->
 <!--            android:name=".Step"-->
 <!--            android:exported="false" />&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name=".recipe.RecipeDetailActivity"-->
-<!--            android:exported="false"-->
-<!--            android:parentActivityName=".recipe.RecipeLibraryActivity" />-->
+        <activity
+            android:name=".trainingSessions.TrainingDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".trainingSessions.TrainingSessionsLibraryActivity" />
+        <activity
+            android:name=".recipe.RecipeDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".recipe.RecipeLibraryActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -41,7 +45,10 @@
         </activity>
         <activity
             android:name=".recipe.RecipeLibraryActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".trainingSessions.TrainingSessionsLibraryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

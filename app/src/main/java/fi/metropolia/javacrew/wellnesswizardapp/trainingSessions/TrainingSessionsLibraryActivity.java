@@ -1,60 +1,51 @@
-package fi.metropolia.javacrew.wellnesswizardapp.recipe;
+package fi.metropolia.javacrew.wellnesswizardapp.trainingSessions;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.recipe.Recipe;
+import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeDetailActivity;
+import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeInfoHolder;
+import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
-import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 
-public class RecipeLibraryActivity extends AppCompatActivity {
+public class TrainingSessionsLibraryActivity extends AppCompatActivity {
 
-    public static final String EXTRA_RECIPE = "fi.metropolia.javacrew.wellnesswizardapp.MESSAGE";
+    public static final String EXTRA_TRAINING = "fi.metropolia.javacrew.wellnesswizardapp.MESSAGE";
 
     NavigationBarView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_library);
+        setContentView(R.layout.activity_training_sessions_library);
 
-        ListView listViewRecipes = findViewById(R.id.listView_Recipes);
-        listViewRecipes.setAdapter(new ArrayAdapter<Recipe>(this, R.layout.recipe_item, RecipeInfoHolder.getInstance().getResipes()));
+        ListView listViewRecipes = findViewById(R.id.listView_trainingSessions);
+
+        listViewRecipes.setAdapter(new ArrayAdapter<TrainingSession>(this, R.layout.training_item, TrainingSessionHolder.getInstance().getTraining()));
 
         listViewRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent nextActivity = new Intent(RecipeLibraryActivity.this, RecipeDetailActivity.class);
-                nextActivity.putExtra(EXTRA_RECIPE, i);
+                Intent nextActivity = new Intent(TrainingSessionsLibraryActivity.this, TrainingDetailActivity.class);
+                nextActivity.putExtra(EXTRA_TRAINING, i);
                 startActivity(nextActivity);
-
-
             }
+
+
         });
 
         bottomNav = findViewById(R.id.bottomNavID);
@@ -66,11 +57,11 @@ public class RecipeLibraryActivity extends AppCompatActivity {
                 Intent intent = null;
                 switch (item.getItemId()){
                     case R.id.home:
-                        intent = new Intent(RecipeLibraryActivity.this, MainActivity.class);
+                        intent = new Intent(TrainingSessionsLibraryActivity.this, MainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.exercise:
-                        intent = new Intent(RecipeLibraryActivity.this, TrainingSessionsLibraryActivity.class);
+                    case R.id.receipt:
+                        intent = new Intent(TrainingSessionsLibraryActivity.this, RecipeLibraryActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -80,10 +71,6 @@ public class RecipeLibraryActivity extends AppCompatActivity {
         });
 
     }
-    /*
-    private List<Recipe> recipes(){
-        List<Recipe> recipes = new ArrayList<>();
-        return recipes;
-    }
-    */
+
+
 }
