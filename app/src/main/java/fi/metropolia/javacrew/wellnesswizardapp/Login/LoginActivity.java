@@ -6,13 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Locale;
+
 import fi.metropolia.javacrew.wellnesswizardapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
 
     EditText username;
-    Button enterButton = findViewById(R.id.enterButton);
+    Button enterButton;
 
 
     @Override
@@ -25,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.editTextTextUsername);
         username.setText("");
 
+        //Luodaan yhteys Enter-nappulaan
+        enterButton = findViewById(R.id.enterButton);
 
 
     }
@@ -33,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                username.getText().toString().toLowerCase(Locale.ROOT);
                 
             }
         });
