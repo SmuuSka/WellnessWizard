@@ -2,13 +2,17 @@ package fi.metropolia.javacrew.wellnesswizardapp.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import fi.metropolia.javacrew.wellnesswizardapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+    EditText username;
+    Button enterButton = findViewById(R.id.enterButton);
 
 
     @Override
@@ -18,11 +22,20 @@ public class LoginActivity extends AppCompatActivity {
 
         //Luodaan username muuttuja PlainText componentille,
         //ja luodaan yhteys componentiin id:n avulla.
-        EditText username = findViewById(R.id.editTextTextUsername);
+        username = findViewById(R.id.editTextTextUsername);
         username.setText("");
+
+
+
     }
 
-
-
+    public void enterTestActivity(){
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+    }
 
 }
