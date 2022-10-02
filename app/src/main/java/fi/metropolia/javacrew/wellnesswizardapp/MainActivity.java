@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if(progress >= 10) {
                     progress -= 10;
                     updateProgress();
+                    //Test
                 }
             }
         });
