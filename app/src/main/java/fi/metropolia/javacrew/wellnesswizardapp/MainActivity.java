@@ -16,19 +16,22 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    NavigationBarView bottomNav;
+    private NavigationBarView bottomNav;
+    private int progress = 0;
+    private TextView showProgress;
+    private ProgressBar progressBar;
 
     /**
      * This is needed for stepCounter to work. Asks user permission to use Sensors. turo
@@ -56,6 +59,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button increaseBtn = findViewById(R.id.increase);
+        Button decreaseBtn = findViewById(R.id.decrease);
+
+        showProgress = findViewById(R.id.progressTxt);
+        progressBar = findViewById(R.id.progressbar);
+
+
+        increaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (progress <=90) {
+                    progress += 10;
+                    updateProgress();
+                }
+            }
+        });
+
+        decreaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(progress >= 10) {
+                    progress -= 10;
+                    updateProgress();
+                    //Test
+                }
+            }
+        });
 
         /**
          * Is needed for Sensor usage -> checks user permission status turo
@@ -142,5 +173,10 @@ public class MainActivity extends AppCompatActivity {
         float currentSteps = StepsCounter.getInstance().getSteps();
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
         stepsTextView.setText(Float.toString(currentSteps));
+    }
+
+    private void updateProgress(){
+        progressBar.setProgress(progress);
+        showProgress.setText(Integer.toString(progress));
     }
 }
