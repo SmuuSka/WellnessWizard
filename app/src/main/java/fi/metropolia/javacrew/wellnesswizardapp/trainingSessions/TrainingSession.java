@@ -2,6 +2,9 @@ package fi.metropolia.javacrew.wellnesswizardapp.trainingSessions;
 
 import android.media.Image;
 
+/**
+ * @author turovaarti
+ */
 public class TrainingSession {
 
     private String trainingName;

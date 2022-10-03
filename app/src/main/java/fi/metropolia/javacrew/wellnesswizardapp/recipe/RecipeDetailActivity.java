@@ -16,6 +16,9 @@ import fi.metropolia.javacrew.wellnesswizardapp.R;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingDetailActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 
+/**
+ * @author turovaarti
+ */
 public class RecipeDetailActivity extends AppCompatActivity {
 
     private NavigationBarView bottomNav;

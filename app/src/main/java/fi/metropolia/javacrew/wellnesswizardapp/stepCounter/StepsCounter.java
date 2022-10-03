@@ -4,6 +4,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
+
 /**
  * @author Turo Vaarti
  *
@@ -19,6 +21,8 @@ public class StepsCounter implements SensorEventListener {
     private float compensationStepsAmount;
 
     private Sensor stepSensor;
+
+    MainActivity mainActivity;
 
     public static StepsCounter getInstance() {
         if (instance == null)

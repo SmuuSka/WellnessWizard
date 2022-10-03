@@ -31,6 +31,9 @@ import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 
+/**
+ * @author turovaarti
+ */
 public class RecipeLibraryActivity extends AppCompatActivity {
 
     public static final String EXTRA_RECIPE = "fi.metropolia.javacrew.wellnesswizardapp.MESSAGE";
