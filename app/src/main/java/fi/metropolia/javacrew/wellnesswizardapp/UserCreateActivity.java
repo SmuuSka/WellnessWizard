@@ -55,6 +55,8 @@ public class UserCreateActivity extends AppCompatActivity {
 
                 Henkilo uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight, personGender);
                 saveData(uusiKayttaja);
+                Henkilo.setInstance(uusiKayttaja);
+
                 //Testi load old Henkilo
                 Henkilo ladattu = loadData();
                 System.out.println(ladattu + " ladattu 60 sekunnissa");

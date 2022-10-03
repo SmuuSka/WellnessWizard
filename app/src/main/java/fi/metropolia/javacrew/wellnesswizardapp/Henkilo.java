@@ -12,6 +12,11 @@ import java.util.Objects;
 
 
 public class Henkilo {
+    private static Henkilo ourInstance = null;
+
+    public static void setInstance(Henkilo ourInstance) {
+        Henkilo.ourInstance = ourInstance;
+    }
 
     private String nimi;
     private int ika;
@@ -38,7 +43,8 @@ public class Henkilo {
         this.sukupuoli = "määrittelemätön";
         this.uni = new HashMap<>();
     }
-    
+
+
     public void paivitaUni(double nukuttuAika) {     
         this.uni.put(java.time.LocalDate.now().toString(), nukuttuAika);
     }
@@ -49,6 +55,9 @@ public class Henkilo {
         }
     }
 
+    public static Henkilo getInstance() {
+        return ourInstance;
+    }
 
     public String getNimi() {
         return nimi;
