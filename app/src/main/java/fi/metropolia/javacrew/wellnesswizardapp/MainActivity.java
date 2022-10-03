@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.SimpleDateFormat;
+
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private int progress = 0;
     private TextView showProgress, usernameTextView;
     private ProgressBar progressBar;
+    private MyForegroundService foregroundService;
 
     /**
      * This is needed for stepCounter to work. Asks user permission to use Sensors. turo
@@ -60,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Start foregroundService
+        foregroundService = new MyForegroundService();
+        Intent serviceIntent = new Intent(this, MyForegroundService.class);
+        startService(serviceIntent);
+
         Button increaseBtn = findViewById(R.id.increase);
         Button decreaseBtn = findViewById(R.id.decrease);
 
@@ -68,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
         progress = Math.round(StepsCounter.getInstance().getSteps());
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
+
+        SimpleDateFormat sDF = new SimpleDateFormat("HH:mm:ss");
+        String currentTime = sDF.format(foregroundService.currentTime());
+        showProgress.setText(currentTime);
+
 
         increaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateProgress(float _progress){
         progressBar.setProgress(Math.round(_progress));
-        showProgress.setText(Float.toString(_progress));
+        //showProgress.setText(Float.toString(_progress));
+
 
     }
 }
