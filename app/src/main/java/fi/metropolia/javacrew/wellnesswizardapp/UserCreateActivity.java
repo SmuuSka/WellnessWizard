@@ -30,6 +30,7 @@ public class UserCreateActivity extends AppCompatActivity {
     private int personAge, personHeight;
     private double personWeight;
     private Intent intent;
+    private String loginName;
 
 
     @Override
@@ -43,12 +44,13 @@ public class UserCreateActivity extends AppCompatActivity {
          * Take user inputs as parameters and create Henkilo as singleton
          * save it also as a sharedPreferense.
          * */
-        Intent intent= getIntent();
-        String loginName =intent.getStringExtra(LoginActivity.EXTRA_BERBA);
-
+        intent= getIntent();
+        loginName =intent.getStringExtra(LoginActivity.EXTRA_BERBA);
         sharedPreferences = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
+
         //Parameters from user inputs.
         name = (EditText) findViewById(R.id.editTextTextPersonName);
+        name.setText(loginName);
         gender = (EditText) findViewById(R.id.editTextTextPersonNameGender);
         age = (EditText) findViewById(R.id.editTextNumberAge);
         height = (EditText) findViewById(R.id.editTextNumberHeight);
