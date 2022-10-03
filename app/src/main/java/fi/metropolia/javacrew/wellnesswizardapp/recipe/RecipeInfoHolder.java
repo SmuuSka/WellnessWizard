@@ -6,6 +6,7 @@ import java.util.List;
 public class RecipeInfoHolder {
 
     private  static final RecipeInfoHolder instance = new RecipeInfoHolder();
+    private int caloriesIntakeAmount;
 
     private List<Recipe> recipes = new ArrayList<>();
 
@@ -20,5 +21,12 @@ public class RecipeInfoHolder {
     }
     public List<Recipe> getResipes(){
         return recipes;
+    }
+
+    public void SetIntakeCaloriesAmount(int calories){
+        caloriesIntakeAmount = calories;
+    }
+    public int GetIntakeCaloriesAmount(){
+        return caloriesIntakeAmount;
     }
 }

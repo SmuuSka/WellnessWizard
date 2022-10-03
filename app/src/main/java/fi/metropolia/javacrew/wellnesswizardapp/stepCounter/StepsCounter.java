@@ -16,6 +16,8 @@ public class StepsCounter implements SensorEventListener {
     private float startSteps;
     private  boolean isFirstEventOfDay;
 
+    private float compensationStepsAmount;
+
     private Sensor stepSensor;
 
     public static StepsCounter getInstance() {
@@ -68,9 +70,14 @@ public class StepsCounter implements SensorEventListener {
         isFirstEventOfDay = true;
         return currentSteps;
     }
-    public  void  setSteps(){
-        //startSteps = steps;
+    public  void  setSteps(float compensationSteps){
 
+        compensationStepsAmount = compensationSteps;
+
+    }
+
+    public float GetCompensationStepAmount(){
+        return compensationStepsAmount;
     }
 
 
