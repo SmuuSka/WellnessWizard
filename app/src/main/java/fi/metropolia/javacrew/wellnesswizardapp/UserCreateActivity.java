@@ -31,6 +31,7 @@ public class UserCreateActivity extends AppCompatActivity {
     private double personWeight;
     private Intent intent;
     private String loginName;
+    private Intent nextActivityIntent;
 
 
     @Override
@@ -44,13 +45,17 @@ public class UserCreateActivity extends AppCompatActivity {
          * Take user inputs as parameters and create Henkilo as singleton
          * save it also as a sharedPreferense.
          * */
-        intent= getIntent();
-        loginName =intent.getStringExtra(LoginActivity.EXTRA_BERBA);
+        intent = getIntent();
+        loginName = intent.getStringExtra(LoginActivity.EXTRA_BERBA);
         sharedPreferences = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
 
         //Parameters from user inputs.
         name = (EditText) findViewById(R.id.editTextTextPersonName);
-        name.setText(loginName);
+        if (loginName.isEmpty()) {
+            name.setText("");
+        } else {
+            name.setText(loginName);
+        }
         gender = (EditText) findViewById(R.id.editTextTextPersonNameGender);
         age = (EditText) findViewById(R.id.editTextNumberAge);
         height = (EditText) findViewById(R.id.editTextNumberHeight);
@@ -76,6 +81,8 @@ public class UserCreateActivity extends AppCompatActivity {
                 //Testi load old Henkilo
                 Henkilo ladattu = loadData();
                 System.out.println(ladattu + " ladattu 60 sekunnissa");
+                nextActivityIntent = new Intent(UserCreateActivity.this, MainActivity.class);
+                startActivity(nextActivityIntent);
             }
         });
 
