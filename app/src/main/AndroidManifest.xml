@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="fi.metropolia.javacrew.wellnesswizardapp">
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WellnessWizardApp"
         tools:targetApi="31">
+
+<!--        <activity-->
+<!--            android:name=".stepCounter.StepCounterActivity"-->
+<!--            android:exported="false" />-->
+<!--&lt;!&ndash;        <activity-->
+<!--            android:name="r.StepCounter"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".Step"-->
+<!--            android:exported="false" />&ndash;&gt;-->
         <activity
             android:name=".Login.LoginActivity"
             android:exported="true">
@@ -30,18 +42,25 @@
         <activity
             android:name=".Step"
             android:exported="false" />
+            android:name=".trainingSessions.TrainingDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".trainingSessions.TrainingSessionsLibraryActivity" />
         <activity
             android:name=".recipe.RecipeDetailActivity"
             android:exported="false"
             android:parentActivityName=".recipe.RecipeLibraryActivity" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".recipe.RecipeLibraryActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
+        <activity
+            android:name=".trainingSessions.TrainingSessionsLibraryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

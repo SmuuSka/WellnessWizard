@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WellnessWizardApp</string>
+    <string name="welcome_n_please_insert_info">Welcome\n please insert your personal data</string>
+    <string name="sendButton">Send</string>
+    <string name="enter_your_weight">Enter your weight</string>
+    <string name="enter_your_height">Enter your height</string>
+    <string name="enter_your_age">Enter your age</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="gender_optional">Gender(optional)</string>
 </resources>
