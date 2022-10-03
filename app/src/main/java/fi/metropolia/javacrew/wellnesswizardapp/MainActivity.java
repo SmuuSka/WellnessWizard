@@ -65,26 +65,27 @@ public class MainActivity extends AppCompatActivity {
 
         showProgress = findViewById(R.id.progressTxt);
         progressBar = findViewById(R.id.progressbar);
-
+        progress = Math.round(StepsCounter.getInstance().getSteps());
 
         increaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (progress <=90) {
                     progress += 10;
-                    updateProgress();
+                    updateProgress(progress);
                 }
+
             }
         });
 
         decreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(progress >= 10) {
-                    progress -= 10;
-                    updateProgress();
-                    //Test
-                }
+//                if(progress >= 10) {
+//                    progress -= 10;
+//                    updateProgress(progress);
+//                    Test
+//                }
             }
         });
 
@@ -173,10 +174,12 @@ public class MainActivity extends AppCompatActivity {
         float currentSteps = StepsCounter.getInstance().getSteps();
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
         stepsTextView.setText(Float.toString(currentSteps));
+        updateProgress(currentSteps);
     }
 
-    private void updateProgress(){
-        progressBar.setProgress(progress);
-        showProgress.setText(Integer.toString(progress));
+    private void updateProgress(float _progress){
+        progressBar.setProgress(Math.round(_progress));
+        showProgress.setText(Float.toString(_progress));
+
     }
 }
