@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationBarView bottomNav;
     private int progress = 0;
-    private TextView showProgress;
+    private TextView showProgress, usernameTextView;
     private ProgressBar progressBar;
 
     /**
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         showProgress = findViewById(R.id.progressTxt);
         progressBar = findViewById(R.id.progressbar);
         progress = Math.round(StepsCounter.getInstance().getSteps());
+        usernameTextView = findViewById(R.id.usernameTextView);
+        usernameTextView.setText(Henkilo.getInstance().getNimi());
 
         increaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
