@@ -12,9 +12,9 @@ import fi.metropolia.javacrew.wellnesswizardapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    EditText username;
-    Button enterButton;
+    //Luodaan username ja enterButton muuttujat
+    private EditText username;
+    private Button enterButton;
 
 
     @Override
@@ -22,8 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        //Luodaan username muuttuja PlainText componentille,
-        //ja luodaan yhteys componentiin id:n avulla.
+        //Luodaan yhteys username muuttujaan PlainText componentin id:n avulla
         username = findViewById(R.id.editTextTextUsername);
         username.setText("");
 
