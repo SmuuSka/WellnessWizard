@@ -3,6 +3,9 @@ package fi.metropolia.javacrew.wellnesswizardapp.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author turovaarti
+ */
 public class RecipeInfoHolder {
 
     private  static final RecipeInfoHolder instance = new RecipeInfoHolder();

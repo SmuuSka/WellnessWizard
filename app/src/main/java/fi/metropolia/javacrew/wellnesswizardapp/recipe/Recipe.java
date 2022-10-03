@@ -1,5 +1,8 @@
 package fi.metropolia.javacrew.wellnesswizardapp.recipe;
 
+/**
+ * @author turovaarti
+ */
 public class Recipe {
 
     private  String nameOfDish;

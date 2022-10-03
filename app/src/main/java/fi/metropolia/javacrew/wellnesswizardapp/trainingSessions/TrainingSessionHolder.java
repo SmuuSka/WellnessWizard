@@ -3,6 +3,9 @@ package fi.metropolia.javacrew.wellnesswizardapp.trainingSessions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author turovaarti
+ */
 public class TrainingSessionHolder {
 
     private static final TrainingSessionHolder trainingInstance = new TrainingSessionHolder();

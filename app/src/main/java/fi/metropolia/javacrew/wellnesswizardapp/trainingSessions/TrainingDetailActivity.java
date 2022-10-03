@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
@@ -20,10 +21,14 @@ import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeInfoHolder;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 
+/**
+ * @author turovaarti
+ */
 public class TrainingDetailActivity extends AppCompatActivity {
 
     private float trainingDistance;
     private NavigationBarView bottomNav;
+    private EditText distanceAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +73,7 @@ public class TrainingDetailActivity extends AppCompatActivity {
     }
 
     public void SendDistance(View view) {
-
-        Scanner sc = new Scanner(System.in);
-        trainingDistance = sc.nextFloat();
+        trainingDistance = Float.parseFloat(((EditText)findViewById(R.id.editTextNumber_caloriesInput)).getText().toString());
         TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
         float compensationSteps = trainingDistance * 2;
         StepsCounter.getInstance().setSteps(compensationSteps);

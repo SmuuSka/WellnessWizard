@@ -21,6 +21,9 @@ import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeInfoHolder;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
 
+/**
+ * @author turovaarti
+ */
 public class TrainingSessionsLibraryActivity extends AppCompatActivity {
 
     public static final String EXTRA_TRAINING = "fi.metropolia.javacrew.wellnesswizardapp.MESSAGE";
