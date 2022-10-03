@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".recipe.RecipeDetailActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation"/>
+
     <TextView
         android:id="@+id/textView_RecipeName"
         android:layout_width="327dp"
@@ -30,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintVertical_bias="0.79" />
 
     <TextView
         android:id="@+id/textViewRecipeContent"
@@ -44,4 +53,16 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_SendIntakeCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="SendEatenCalories"
+        android:text="Send"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ public class TrainingSessionHolder {
     private static final TrainingSessionHolder trainingInstance = new TrainingSessionHolder();
 
     private List<TrainingSession> trainings = new ArrayList();
+    private float trainingDistanceAmount;
 
     public static TrainingSessionHolder getInstance(){
         return trainingInstance;
@@ -23,6 +24,14 @@ public class TrainingSessionHolder {
     public List<TrainingSession> getTraining(){
 
         return trainings;
+    }
+
+    public  void SetTrainingDistance(float distance){
+        trainingDistanceAmount = distance;
+    }
+
+    public  float GetTrainingDistance(){
+        return trainingDistanceAmount;
     }
 
 }

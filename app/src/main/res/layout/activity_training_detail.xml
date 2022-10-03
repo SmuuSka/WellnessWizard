@@ -6,13 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".trainingSessions.TrainingDetailActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation"/>
+
     <TextView
         android:id="@+id/textView_NameOfTraining"
         android:layout_width="312dp"
         android:layout_height="83dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +30,8 @@
 
     <TextView
         android:id="@+id/textView_TrainingCalorieAmount"
-        android:layout_width="167dp"
-        android:layout_height="56dp"
+        android:layout_width="409dp"
+        android:layout_height="63dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -30,6 +39,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.64" />
+
+    <EditText
+        android:id="@+id/editTextNumber_caloriesInput"
+        android:layout_width="167dp"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="Insert distance..."
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.71000004" />
+
+    <Button
+        android:id="@+id/button_SendDistanceAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="SendDistance"
+        android:text="Send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

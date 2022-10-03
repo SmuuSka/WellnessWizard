@@ -1,16 +1,29 @@
 package fi.metropolia.javacrew.wellnesswizardapp.trainingSessions;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.Scanner;
+
+import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.R;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.Recipe;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeInfoHolder;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
+import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 
 public class TrainingDetailActivity extends AppCompatActivity {
+
+    private float trainingDistance;
+    private NavigationBarView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +36,43 @@ public class TrainingDetailActivity extends AppCompatActivity {
         TrainingSession trainingSession = TrainingSessionHolder.getInstance().getTraining().get(i);
 
         ((TextView)findViewById(R.id.textView_NameOfTraining)).setText(trainingSession.getName());
-        ((TextView)findViewById(R.id.textView_TrainingCalorieAmount)).setText(Integer.toString(trainingSession.getCalories()));
+        ((TextView)findViewById(R.id.textView_TrainingCalorieAmount)).setText("Insert session distance");
+
+
+        bottomNav = findViewById(R.id.bottomNavID);
+        bottomNav.getMenu().getItem(1).setChecked(true);
+
+        bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                switch (item.getItemId()){
+                    case R.id.exercise:
+                        intent = new Intent(TrainingDetailActivity.this, TrainingSessionsLibraryActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.receipt:
+                        intent = new Intent(TrainingDetailActivity.this, RecipeLibraryActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.home:
+                        intent = new Intent(TrainingDetailActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+
+        });
+
+    }
+
+    public void SendDistance(View view) {
+
+        Scanner sc = new Scanner(System.in);
+        trainingDistance = sc.nextFloat();
+        TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
+        float compensationSteps = trainingDistance * 2;
+        StepsCounter.getInstance().setSteps(compensationSteps);
     }
 }

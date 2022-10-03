@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
          * This one is needed for showing user steps amount. turo
          */
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
-        StepsCounter.getInstance().setSteps();
+        //StepsCounter.getInstance().setSteps();
         float steps = StepsCounter.getInstance().getSteps();
         stepsTextView.setText(Float.toString(steps));
 
