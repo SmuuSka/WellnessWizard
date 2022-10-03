@@ -4,8 +4,19 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+/**
+ * @author Turo Vaarti
+ *
+ */
 public class StepsCounter implements SensorEventListener {
     private static StepsCounter instance;
+
+    private float steps;
+    private float currentSteps;
+    private float startSteps;
+    private  boolean isFirstEventOfDay;
+
+    private Sensor stepSensor;
 
     public static StepsCounter getInstance() {
         if (instance == null)
@@ -14,14 +25,17 @@ public class StepsCounter implements SensorEventListener {
     }
 
     private StepsCounter() {
+
+        steps = 0;
+        isFirstEventOfDay = true;
+
     }
 
-    private float steps = 0;
 
-    private Sensor stepSensor;
 
     public void setStepSensor(Sensor stepSensor) {
         this.stepSensor = stepSensor;
+
     }
 
     @Override
@@ -29,6 +43,12 @@ public class StepsCounter implements SensorEventListener {
         //if (sensorEvent.sensor == stepSensor) {
             System.out.println(Float.toString(steps));
             steps = sensorEvent.values[0];
+            if(isFirstEventOfDay){
+                startSteps = steps;
+                isFirstEventOfDay = false;
+            }
+            currentSteps = sensorEvent.values[0] - startSteps;
+
         //}
     }
 
@@ -38,13 +58,19 @@ public class StepsCounter implements SensorEventListener {
     }
 
     public float getSteps() {
-        //steps = steps + 1;
-        return steps;
+
+        return currentSteps;
     }
 
     public float resetSteps() {
-        steps = 0;
-        return steps;
+        //steps = 0;
+        //currentSteps = steps - steps;
+        isFirstEventOfDay = true;
+        return currentSteps;
+    }
+    public  void  setSteps(){
+        //startSteps = steps;
+
     }
 
 

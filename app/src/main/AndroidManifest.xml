@@ -16,15 +16,6 @@
         android:theme="@style/Theme.WellnessWizardApp"
         tools:targetApi="31">
 
-<!--        <activity-->
-<!--            android:name=".stepCounter.StepCounterActivity"-->
-<!--            android:exported="false" />-->
-<!--&lt;!&ndash;        <activity-->
-<!--            android:name="r.StepCounter"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".Step"-->
-<!--            android:exported="false" />&ndash;&gt;-->
         <activity
             android:name=".Login.LoginActivity"
             android:exported="true">
@@ -33,15 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".stepCounter.StepCounterActivity"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="false">
+        </activity>
+
         <activity
-            android:name=".StepCounter"
-            android:exported="false" />
-        <activity
-            android:name=".Step"
-            android:exported="false" />
             android:name=".trainingSessions.TrainingDetailActivity"
             android:exported="false"
             android:parentActivityName=".trainingSessions.TrainingSessionsLibraryActivity" />
@@ -49,12 +38,6 @@
             android:name=".recipe.RecipeDetailActivity"
             android:exported="false"
             android:parentActivityName=".recipe.RecipeLibraryActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".recipe.RecipeLibraryActivity"
             android:exported="false" />
