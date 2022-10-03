@@ -44,6 +44,9 @@
         <activity
             android:name=".trainingSessions.TrainingSessionsLibraryActivity"
             android:exported="false" />
+        <activity
+            android:name=".UserCreateActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

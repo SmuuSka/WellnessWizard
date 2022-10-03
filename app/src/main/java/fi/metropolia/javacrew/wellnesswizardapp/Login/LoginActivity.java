@@ -12,8 +12,11 @@ import java.util.Locale;
 
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.UserCreateActivity;
 
 public class LoginActivity extends AppCompatActivity {
+
+    public static final String EXTRA_BERBA = "username.EXTRA_BERBA";
 
     //Luodaan username ja enterButton muuttujat
     private EditText username;
@@ -46,17 +49,18 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(bypassIntent);
             }
         });
-    }
 
 
-    public void enterTestActivity(){
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username.getText().toString().toLowerCase(Locale.ROOT);
+                String name = username.getText().toString().toLowerCase(Locale.ROOT);
+
+                Intent enterIntent = new Intent(LoginActivity.this, UserCreateActivity.class);
+                enterIntent.putExtra(EXTRA_BERBA, name);
+                startActivity(enterIntent);
 
             }
         });
     }
-
 }
