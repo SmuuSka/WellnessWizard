@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 username.getText().toString().toLowerCase(Locale.ROOT);
-                
+
             }
         });
     }
