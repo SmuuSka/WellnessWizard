@@ -49,14 +49,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-//    public void enterTestActivity(){
-//        enterButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                username.getText().toString().toLowerCase(Locale.ROOT);
-//
-//            }
-//        });
-//    }
+    public void enterTestActivity(){
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                username.getText().toString().toLowerCase(Locale.ROOT);
+
+            }
+        });
+    }
 
 }
