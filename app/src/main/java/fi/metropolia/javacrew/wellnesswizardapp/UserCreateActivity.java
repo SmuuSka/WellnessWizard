@@ -32,6 +32,7 @@ public class UserCreateActivity extends AppCompatActivity {
     private Intent intent;
     private String loginName;
     private Intent nextActivityIntent;
+    private Henkilo uusiKayttaja;
 
 
     @Override
@@ -73,8 +74,12 @@ public class UserCreateActivity extends AppCompatActivity {
                 personAge = Integer.parseInt(age.getText().toString());
                 personHeight = Integer.parseInt(height.getText().toString());
                 personWeight = Double.parseDouble(weight.getText().toString());
+                if (personGender.isEmpty()) {
+                    uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight);
+                } else {
+                    uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight, personGender);
+                }
 
-                Henkilo uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight, personGender);
                 saveData(uusiKayttaja);
                 Henkilo.setInstance(uusiKayttaja);
 
