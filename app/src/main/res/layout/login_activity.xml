@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextTextUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Enter Username"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/enterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
+
+    <TextView
+        android:id="@+id/textViewWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Wellness Wizard"
+        android:textColor="#040404"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please enter your name"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWelcome" />
+
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextUsername" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

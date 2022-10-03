@@ -26,6 +26,22 @@
 <!--            android:name=".Step"-->
 <!--            android:exported="false" />&ndash;&gt;-->
         <activity
+            android:name=".Login.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".stepCounter.StepCounterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StepCounter"
+            android:exported="false" />
+        <activity
+            android:name=".Step"
+            android:exported="false" />
             android:name=".trainingSessions.TrainingDetailActivity"
             android:exported="false"
             android:parentActivityName=".trainingSessions.TrainingSessionsLibraryActivity" />
@@ -36,12 +52,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".recipe.RecipeLibraryActivity"
