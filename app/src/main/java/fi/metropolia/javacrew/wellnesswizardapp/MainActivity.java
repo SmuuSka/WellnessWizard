@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -79,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
          * This one is needed for showing user steps amount. turo
          */
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
+        StepsCounter.getInstance().setSteps();
         float steps = StepsCounter.getInstance().getSteps();
-
         stepsTextView.setText(Float.toString(steps));
 
 
