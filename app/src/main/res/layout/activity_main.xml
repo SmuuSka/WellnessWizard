@@ -38,34 +38,6 @@
 
     </TextView>
 
-    <Button
-        android:id="@+id/decrease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499">
-
-    </Button>
-
-    <Button
-        android:id="@+id/increase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.804"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        tools:text="+">
-
-    </Button>
 
     <FrameLayout
         android:layout_width="0dp"
@@ -121,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="ShowCurrentSteps"
+        android:onClick="showCurrentSteps"
         android:text="Show Steps"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
