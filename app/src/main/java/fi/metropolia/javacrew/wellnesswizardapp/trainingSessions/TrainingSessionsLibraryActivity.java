@@ -36,6 +36,7 @@ public class TrainingSessionsLibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_sessions_library);
 
+
         ListView listViewRecipes = findViewById(R.id.listView_trainingSessions);
 
         listViewRecipes.setAdapter(new ArrayAdapter<TrainingSession>(this, R.layout.training_item, TrainingSessionHolder.getInstance().getTraining()));
@@ -55,7 +56,7 @@ public class TrainingSessionsLibraryActivity extends AppCompatActivity {
  * Folowing is needed for bottom navicationbar to work.
  */
         bottomNav = findViewById(R.id.bottomNavID);
-        bottomNav.getMenu().getItem(1).setChecked(true);
+        bottomNav.getMenu().getItem(0).setChecked(true);
 
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

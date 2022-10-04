@@ -47,6 +47,7 @@ public class RecipeLibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_library);
 
+
         ListView listViewRecipes = findViewById(R.id.listView_Recipes);
         listViewRecipes.setAdapter(new ArrayAdapter<Recipe>(this, R.layout.recipe_item, RecipeInfoHolder.getInstance().getResipes()));
 
@@ -65,7 +66,7 @@ public class RecipeLibraryActivity extends AppCompatActivity {
  * Folowing is needed for bottom navicationbar to work.
  */
         bottomNav = findViewById(R.id.bottomNavID);
-        bottomNav.getMenu().getItem(1).setChecked(true);
+        bottomNav.getMenu().getItem(2).setChecked(true);
 
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
