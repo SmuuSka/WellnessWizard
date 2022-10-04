@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -17,22 +18,13 @@ import fi.metropolia.javacrew.wellnesswizardapp.Login.LoginActivity;
 
 public class UserCreateActivity extends AppCompatActivity {
 
-    private SharedPreferences sharedPreferences;
-
-    private Henkilo person;
-
     EditText name;
     EditText gender;
     EditText age;
     EditText weight;
     EditText height;
-    private String personName, personGender;
-    private int personAge, personHeight;
-    private double personWeight;
-    private Intent intent;
     private String loginName;
     private Intent nextActivityIntent;
-    private Henkilo uusiKayttaja;
 
 
     @Override
@@ -46,9 +38,9 @@ public class UserCreateActivity extends AppCompatActivity {
          * Take user inputs as parameters and create Henkilo as singleton
          * save it also as a sharedPreferense.
          * */
-        intent = getIntent();
+        Intent intent = getIntent();
         loginName = intent.getStringExtra(LoginActivity.EXTRA_BERBA);
-        sharedPreferences = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
 
         //Parameters from user inputs.
         name = (EditText) findViewById(R.id.editTextTextPersonName);
@@ -69,15 +61,11 @@ public class UserCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //save data and move to next activity.
-                personName = loginName;
-                personGender = gender.getText().toString();
-                personAge = Integer.parseInt(age.getText().toString());
-                personHeight = Integer.parseInt(height.getText().toString());
-                personWeight = Double.parseDouble(weight.getText().toString());
-                if (personGender.isEmpty()) {
-                    uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight);
-                } else {
-                    uusiKayttaja = new Henkilo(personName, personAge, personHeight, personWeight, personGender);
+
+                Henkilo uusiKayttaja = createHenkilo();
+
+                if (uusiKayttaja == null) {
+                    return;
                 }
 
                 saveData(uusiKayttaja);
@@ -94,6 +82,42 @@ public class UserCreateActivity extends AppCompatActivity {
         //ends
     }
 
+    private Henkilo createHenkilo() {
+        String personName = loginName;
+
+        String personGender = gender.getText().toString();
+
+        int personAge;
+        try {
+            personAge = Integer.parseInt(age.getText().toString());
+        } catch (NumberFormatException ex) {
+            Toast.makeText(this, "Mess", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        int personHeight;
+        try {
+            personHeight = Integer.parseInt(height.getText().toString());
+        } catch (NumberFormatException ex) {
+            Toast.makeText(this, "Height must be between 1 - 2,5m", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        double personWeight;
+        try {
+            personWeight = Double.parseDouble(weight.getText().toString());
+        } catch (NumberFormatException ex) {
+            Toast.makeText(this, "weight must be between 40kg and 200kg", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        if (personGender.isEmpty()) {
+            return new Henkilo(personName, personAge, personHeight, personWeight);
+        } else {
+            return new Henkilo(personName, personAge, personHeight, personWeight, personGender);
+        }
+
+    }
 
     private void saveData(Henkilo henkilo) {
         //Might be for another acivity.
@@ -110,7 +134,7 @@ public class UserCreateActivity extends AppCompatActivity {
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefPut.getString("Henkilo", null);
-        person = gson.fromJson(json, Henkilo.class);
+        Henkilo person = gson.fromJson(json, Henkilo.class);
         return person;
     }
 }
