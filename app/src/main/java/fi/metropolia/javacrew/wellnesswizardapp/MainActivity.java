@@ -14,7 +14,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.text.SimpleDateFormat;
 
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private int progress = 0;
     private TextView showProgress, usernameTextView;
     private ProgressBar progressBar;
-    private MyForegroundService foregroundService;
 
     /**
      * This is needed for stepCounter to work. Asks user permission to use Sensors. turo
@@ -64,11 +60,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Start foregroundService
-        foregroundService = new MyForegroundService();
-        Intent serviceIntent = new Intent(this, MyForegroundService.class);
-        startService(serviceIntent);
 
+        Button increaseBtn = findViewById(R.id.increase);
+        Button decreaseBtn = findViewById(R.id.decrease);
 
         showProgress = findViewById(R.id.progressTxt);
         progressBar = findViewById(R.id.progressbar);
@@ -76,21 +70,27 @@ public class MainActivity extends AppCompatActivity {
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
 
-        SimpleDateFormat sDF = new SimpleDateFormat("HH:mm:ss");
-        String currentTime = sDF.format(foregroundService.currentTime());
-
-
-        new CountDownTimer(300000,1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-                showCurrentSteps();
-            }
-
-            public void onFinish() {
+        increaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (progress <=90) {
+                    progress += 10;
+                    updateProgress(progress);
+                }
 
             }
-        }.start();
+        });
+
+        decreaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                if(progress >= 10) {
+//                    progress -= 10;
+//                    updateProgress(progress);
+//                    Test
+//                }
+            }
+        });
 
         /**
          * Is needed for Sensor usage -> checks user permission status turo
@@ -172,10 +172,22 @@ public class MainActivity extends AppCompatActivity {
      * This one is needed for showing dailySteps for user at real time.
      * @param view
      */
-    public void showCurrentSteps() {
+    public void ShowCurrentSteps(View view) {
 
         float currentSteps = StepsCounter.getInstance().getSteps();
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
         stepsTextView.setText(Float.toString(currentSteps));
+        updateProgress(currentSteps);
+    }
+
+    private void updateProgress(float _progress){
+        progressBar.setProgress(Math.round(_progress));
+        showProgress.setText(Float.toString(_progress));
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
