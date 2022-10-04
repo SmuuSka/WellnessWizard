@@ -90,22 +90,31 @@ public class UserCreateActivity extends AppCompatActivity {
         int personAge;
         try {
             personAge = Integer.parseInt(age.getText().toString());
+            if (personAge < 18 || personAge > 100) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException ex) {
-            Toast.makeText(this, "Mess", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Age must be between 18 and 100", Toast.LENGTH_SHORT).show();
             return null;
         }
 
         int personHeight;
         try {
             personHeight = Integer.parseInt(height.getText().toString());
+            if (personHeight < 120 || personHeight > 250) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException ex) {
-            Toast.makeText(this, "Height must be between 1 - 2,5m", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Height must be between 100cm - 250cm", Toast.LENGTH_SHORT).show();
             return null;
         }
 
         double personWeight;
         try {
             personWeight = Double.parseDouble(weight.getText().toString());
+            if (personWeight < 40.0 || personWeight > 200.0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException ex) {
             Toast.makeText(this, "weight must be between 40kg and 200kg", Toast.LENGTH_SHORT).show();
             return null;
