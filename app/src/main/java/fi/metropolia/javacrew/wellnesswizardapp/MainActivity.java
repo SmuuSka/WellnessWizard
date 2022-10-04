@@ -178,4 +178,9 @@ public class MainActivity extends AppCompatActivity {
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
         stepsTextView.setText(Float.toString(currentSteps));
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
