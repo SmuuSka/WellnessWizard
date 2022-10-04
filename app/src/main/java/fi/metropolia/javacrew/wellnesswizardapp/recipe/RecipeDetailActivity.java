@@ -18,6 +18,7 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 /**
  * @author turovaarti
+ * @class this class creates single recipe detailView for user.
  */
 public class RecipeDetailActivity extends AppCompatActivity {
 
@@ -40,7 +41,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.textView_Calories)).setText(Integer.toString(recipe.getCaloryAmount()));
 
         mealCaloriesAmount = recipe.getCaloryAmount();
-
+/**
+ * Folowing is needed for bottom navicationbar to work.
+ */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);
 
@@ -68,6 +71,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param view sends user imput values to later usage.
+     */
     public void SendEatenCalories(View view) {
 
         RecipeInfoHolder.getInstance().SetIntakeCaloriesAmount(mealCaloriesAmount);

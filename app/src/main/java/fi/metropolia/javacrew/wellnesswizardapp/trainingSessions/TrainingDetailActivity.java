@@ -40,10 +40,12 @@ public class TrainingDetailActivity extends AppCompatActivity {
 
         TrainingSession trainingSession = TrainingSessionHolder.getInstance().getTraining().get(i);
 
-        ((TextView)findViewById(R.id.textView_NameOfTraining)).setText(trainingSession.getName());
-        ((TextView)findViewById(R.id.textView_TrainingCalorieAmount)).setText("Insert session distance");
+        ((TextView) findViewById(R.id.textView_NameOfTraining)).setText(trainingSession.getName());
+        ((TextView) findViewById(R.id.textView_TrainingCalorieAmount)).setText("Insert session distance");
 
-
+/**
+ * Folowing is needed for bottom navicationbar to work.
+ */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);
 
@@ -51,7 +53,7 @@ public class TrainingDetailActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent = null;
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.exercise:
                         intent = new Intent(TrainingDetailActivity.this, TrainingSessionsLibraryActivity.class);
                         startActivity(intent);
@@ -72,10 +74,19 @@ public class TrainingDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @function Sends training session distanceAmount to TrainingSessionHolder where it can be fetch for later use.
+     *           try/catch statement checks if input values are in right format.
+     */
     public void SendDistance(View view) {
-        trainingDistance = Float.parseFloat(((EditText)findViewById(R.id.editTextNumber_caloriesInput)).getText().toString());
-        TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
-        float compensationSteps = trainingDistance * 2;
-        StepsCounter.getInstance().setSteps(compensationSteps);
+        try {
+            trainingDistance = Float.parseFloat(((EditText) findViewById(R.id.editTextNumber_caloriesInput)).getText().toString());
+            TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
+            float compensationSteps = trainingDistance * 2;
+            StepsCounter.getInstance().setSteps(compensationSteps);
+        } catch (NumberFormatException ex) {
+            System.out.println("SYÖTE VÄÄRÄSSÄ FORMAATISSA!");
+        }
+
     }
 }

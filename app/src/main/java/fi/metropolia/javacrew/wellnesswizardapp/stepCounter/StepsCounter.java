@@ -8,6 +8,9 @@ import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 
 /**
  * @author Turo Vaarti
+ * @class This class contains functionalitys for counting steps by STEP_COUNTER sensor.
+ *        class is singleton, so data is accessible from anywhere.
+ *        Sensor activation and call is made in MainActivity.
  *
  */
 public class StepsCounter implements SensorEventListener {
@@ -44,6 +47,10 @@ public class StepsCounter implements SensorEventListener {
 
     }
 
+    /**
+     * @function contains main functionality for counting Steps
+     * @param sensorEvent sets value to currentStep
+     */
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         //if (sensorEvent.sensor == stepSensor) {
@@ -68,18 +75,29 @@ public class StepsCounter implements SensorEventListener {
         return currentSteps;
     }
 
+    /**
+     *
+     * @return currentStepsAmount
+     */
     public float resetSteps() {
-        //steps = 0;
-        //currentSteps = steps - steps;
         isFirstEventOfDay = true;
         return currentSteps;
     }
+
+    /**
+     *
+     * @param compensationSteps sets value for this param that is needed for counting energy usage of user.
+     */
     public  void  setSteps(float compensationSteps){
 
         compensationStepsAmount = compensationSteps;
 
     }
 
+    /**
+     *
+     * @return compensationSteps value for later use.
+     */
     public float GetCompensationStepAmount(){
         return compensationStepsAmount;
     }

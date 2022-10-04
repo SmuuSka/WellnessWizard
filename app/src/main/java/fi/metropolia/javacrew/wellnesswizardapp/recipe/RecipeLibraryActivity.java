@@ -33,6 +33,8 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 /**
  * @author turovaarti
+ * @class this class creates listView from recipeLibrary to user.
+ *        Items can be clicked to open single recipeView.
  */
 public class RecipeLibraryActivity extends AppCompatActivity {
 
@@ -59,7 +61,9 @@ public class RecipeLibraryActivity extends AppCompatActivity {
 
             }
         });
-
+/**
+ * Folowing is needed for bottom navicationbar to work.
+ */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);
 
@@ -83,10 +87,5 @@ public class RecipeLibraryActivity extends AppCompatActivity {
         });
 
     }
-    /*
-    private List<Recipe> recipes(){
-        List<Recipe> recipes = new ArrayList<>();
-        return recipes;
-    }
-    */
+
 }
