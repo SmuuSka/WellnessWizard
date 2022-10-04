@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * @author turovaarti
+ * @class is singleton, contains selected training types that user can use.
+ *        Every trainingSession view contains input
  */
 public class TrainingSessionHolder {
 
@@ -29,20 +31,31 @@ public class TrainingSessionHolder {
         trainings.add(new TrainingSession("Maastojuoksu", 0));
         trainings.add(new TrainingSession("Sisäharjoittelu", 0));
         trainings.add(new TrainingSession("Ulkoharjoittelu", 0));
-        trainings.add(new TrainingSession("Nyrkkeily", 0));
 
 
     }
 
+    /**
+     *
+     * @return
+     */
     public List<TrainingSession> getTraining(){
 
         return trainings;
     }
 
+    /**
+     *
+     * @param distance sets trainingDistance value
+     */
     public  void SetTrainingDistance(float distance){
         trainingDistanceAmount = distance;
     }
 
+    /**
+     *
+     * @return returns trainingDistance value for later use in MainActivity calculations
+     */
     public  float GetTrainingDistance(){
         return trainingDistanceAmount;
     }

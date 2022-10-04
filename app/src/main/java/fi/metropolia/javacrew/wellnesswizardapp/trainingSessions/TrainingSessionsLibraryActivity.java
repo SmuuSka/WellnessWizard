@@ -23,6 +23,7 @@ import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
 
 /**
  * @author turovaarti
+ * @class creates listView of recipe components and moves user to selected recipe info.
  */
 public class TrainingSessionsLibraryActivity extends AppCompatActivity {
 
@@ -50,7 +51,9 @@ public class TrainingSessionsLibraryActivity extends AppCompatActivity {
 
 
         });
-
+/**
+ * Folowing is needed for bottom navicationbar to work.
+ */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);
 

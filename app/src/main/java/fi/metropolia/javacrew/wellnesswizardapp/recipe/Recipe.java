@@ -2,6 +2,7 @@ package fi.metropolia.javacrew.wellnesswizardapp.recipe;
 
 /**
  * @author turovaarti
+ * @class this class contains all needed data for RecipeLibraryActivity to work.
  */
 public class Recipe {
 

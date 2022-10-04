@@ -4,6 +4,7 @@ import android.media.Image;
 
 /**
  * @author turovaarti
+ * @class this class contains all needed data for trainingSessionLibraryActivity to work.
  */
 public class TrainingSession {
 
