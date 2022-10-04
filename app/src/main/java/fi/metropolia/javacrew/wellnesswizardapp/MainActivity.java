@@ -14,6 +14,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -68,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, MyForegroundService.class);
         startService(serviceIntent);
 
-        Button increaseBtn = findViewById(R.id.increase);
-        Button decreaseBtn = findViewById(R.id.decrease);
 
         showProgress = findViewById(R.id.progressTxt);
         progressBar = findViewById(R.id.progressbar);
@@ -79,30 +78,19 @@ public class MainActivity extends AppCompatActivity {
 
         SimpleDateFormat sDF = new SimpleDateFormat("HH:mm:ss");
         String currentTime = sDF.format(foregroundService.currentTime());
-        showProgress.setText(currentTime);
 
 
-        increaseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (progress <=90) {
-                    progress += 10;
-                    updateProgress(progress);
-                }
+        new CountDownTimer(300000,1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                showCurrentSteps();
+            }
+
+            public void onFinish() {
 
             }
-        });
-
-        decreaseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                if(progress >= 10) {
-//                    progress -= 10;
-//                    updateProgress(progress);
-//                    Test
-//                }
-            }
-        });
+        }.start();
 
         /**
          * Is needed for Sensor usage -> checks user permission status turo
@@ -184,18 +172,10 @@ public class MainActivity extends AppCompatActivity {
      * This one is needed for showing dailySteps for user at real time.
      * @param view
      */
-    public void ShowCurrentSteps(View view) {
+    public void showCurrentSteps() {
 
         float currentSteps = StepsCounter.getInstance().getSteps();
         stepsTextView = findViewById(R.id.textView_DailyStepsAmount);
         stepsTextView.setText(Float.toString(currentSteps));
-        updateProgress(currentSteps);
-    }
-
-    private void updateProgress(float _progress){
-        progressBar.setProgress(Math.round(_progress));
-        //showProgress.setText(Float.toString(_progress));
-
-
     }
 }
