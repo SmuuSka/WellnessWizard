@@ -19,8 +19,18 @@ public class TrainingSessionHolder {
 
     private TrainingSessionHolder(){
 
-        trainings.add(new TrainingSession("Juoksu", 567));
-        trainings.add(new TrainingSession("Kävely", 56007));
+        trainings.add(new TrainingSession("Juoksu", 0));
+        trainings.add(new TrainingSession("Kävely", 0));
+        trainings.add(new TrainingSession("Uinti", 0));
+        trainings.add(new TrainingSession("Hiihto", 0));
+        trainings.add(new TrainingSession("Maastojuoksu", 0));
+        trainings.add(new TrainingSession("Pyöräily", 0));
+        trainings.add(new TrainingSession("Maastopyöräily", 0));
+        trainings.add(new TrainingSession("Maastojuoksu", 0));
+        trainings.add(new TrainingSession("Sisäharjoittelu", 0));
+        trainings.add(new TrainingSession("Ulkoharjoittelu", 0));
+        trainings.add(new TrainingSession("Nyrkkeily", 0));
+
 
     }
 

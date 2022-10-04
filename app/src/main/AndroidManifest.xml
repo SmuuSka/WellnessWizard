@@ -4,6 +4,7 @@
     package="fi.metropolia.javacrew.wellnesswizardapp">
 
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -29,6 +30,7 @@
             android:name=".MainActivity"
             android:exported="false">
         </activity>
+        <service android:name=".MyForegroundService"></service>
 
         <activity
             android:name=".trainingSessions.TrainingDetailActivity"
@@ -43,6 +45,9 @@
             android:exported="false" />
         <activity
             android:name=".trainingSessions.TrainingSessionsLibraryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserCreateActivity"
             android:exported="false" />
     </application>
 
