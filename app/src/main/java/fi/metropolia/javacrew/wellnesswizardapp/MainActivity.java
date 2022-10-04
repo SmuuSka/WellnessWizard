@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Button increaseBtn = findViewById(R.id.increase);
         Button decreaseBtn = findViewById(R.id.decrease);
 
@@ -182,6 +183,11 @@ public class MainActivity extends AppCompatActivity {
     private void updateProgress(float _progress){
         progressBar.setProgress(Math.round(_progress));
         showProgress.setText(Float.toString(_progress));
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }
