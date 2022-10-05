@@ -1,7 +1,11 @@
 package fi.metropolia.javacrew.wellnesswizardapp.trainingSessions;
 
+import android.media.Image;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import fi.metropolia.javacrew.wellnesswizardapp.R;
 
 /**
  * @author turovaarti
@@ -31,7 +35,6 @@ public class TrainingSessionHolder {
         trainings.add(new TrainingSession("Maastojuoksu", 0));
         trainings.add(new TrainingSession("Sisäharjoittelu", 0));
         trainings.add(new TrainingSession("Ulkoharjoittelu", 0));
-
 
     }
 

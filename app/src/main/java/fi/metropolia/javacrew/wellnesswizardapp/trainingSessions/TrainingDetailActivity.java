@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +24,14 @@ import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 
 /**
  * @author turovaarti
+ * @class this activity creates visual presantation for user to set training distance for later use in other classes
  */
 public class TrainingDetailActivity extends AppCompatActivity {
 
     private float trainingDistance;
     private NavigationBarView bottomNav;
     private EditText distanceAmount;
+    private Image trainingSessionImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class TrainingDetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textView_TrainingCalorieAmount)).setText("Insert session distance");
 
 /**
- * Folowing is needed for bottom navicationbar to work.
+ * Following is needed for bottom navicationbar to work.
  */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);

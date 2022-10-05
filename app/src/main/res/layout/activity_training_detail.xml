@@ -67,4 +67,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.83" />
 
+    <ImageView
+        android:id="@+id/imageView_TrainingSessionImage"
+        android:layout_width="166dp"
+        android:layout_height="164dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/ic_baseline_directions_run_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
