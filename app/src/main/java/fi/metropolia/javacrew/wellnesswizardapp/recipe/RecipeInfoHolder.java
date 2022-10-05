@@ -27,7 +27,7 @@ public class RecipeInfoHolder {
         recipes.add(new Recipe("Eggs Benedict", "1 muna \n 1 siivu kinkkua \n 1 siivu leipää \n 50g valmista hollandaise kastiketta \n \n Valmista uppomuna reilussa vedessä. Paahda leipä rapeaksi. Lisää leivälle kinkkusiivu ja uppomuna. lämmitä kastike ja annostele leivän päälle. Mausta tarvittaessa suolalla ja pippurilla.", 1190));
         recipes.add(new Recipe("Fetapiiras", "jotain jotain jotain", 302));
         recipes.add(new Recipe("Gratinoitu kukkakaali", "jotain jotain jotain", 200));
-        recipes.add(new Recipe("Hernekeitto", "jotain jotain jotain",  61));
+        recipes.add(new Recipe("Hernekeitto", "100g kuivattuja herneitä \n 50g savukinkkua \n vesi \n suolaa, pippuria, meiramia \n \n Liota herneitä vedessä yön yli. Kaada vesi pois ja lisää tuoretta vettä sen verran että herneet peittyvät hyvin. Hauduta matalalla lämmöllä useampi tunti. Lisää savukinkku sopivina paloina ja mausta.",  61));
         recipes.add(new Recipe("Inkiväärikalaa", "jotain jotain jotain", 669));
         recipes.add(new Recipe("Juustokeitto", "jotain jotain jotain", 212));
         recipes.add(new Recipe("Kalakeitto", "jotain jotain jotain", 404));

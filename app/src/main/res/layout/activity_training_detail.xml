@@ -43,10 +43,10 @@
 
     <EditText
         android:id="@+id/editTextNumber_caloriesInput"
-        android:layout_width="167dp"
-        android:layout_height="60dp"
+        android:layout_width="243dp"
+        android:layout_height="59dp"
         android:ems="10"
-        android:hint="Insert distance..."
+        android:hint="Insert distance in meters..."
         android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"

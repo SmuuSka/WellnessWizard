@@ -6,15 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.Scanner;
 
+import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.R;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.Recipe;
@@ -46,6 +49,10 @@ public class TrainingDetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textView_NameOfTraining)).setText(trainingSession.getName());
         ((TextView) findViewById(R.id.textView_TrainingCalorieAmount)).setText("Insert session distance");
 
+        //This one gives somew feedback to user!!
+
+        Toast toast =  Toast.makeText(getApplicationContext(),"NICE JOB " + Henkilo.getInstance().getNimi().toUpperCase() + "\nKEEP UP THE GOOD WORK!",Toast.LENGTH_LONG);
+        toast.show();
 /**
  * Following is needed for bottom navicationbar to work.
  */
@@ -79,7 +86,7 @@ public class TrainingDetailActivity extends AppCompatActivity {
 
     /**
      * @function Sends training session distanceAmount to TrainingSessionHolder where it can be fetch for later use.
-     *           try/catch statement checks if input values are in right format.
+     *           try/catch statement checks if input values are in right format. If not gives a user notification!
      */
     public void SendDistance(View view) {
         try {
@@ -87,8 +94,13 @@ public class TrainingDetailActivity extends AppCompatActivity {
             TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
             float compensationSteps = trainingDistance * 2;
             StepsCounter.getInstance().setSteps(compensationSteps);
+
+
+            Intent intent = new Intent(TrainingDetailActivity.this, TrainingSessionsLibraryActivity.class);
+            startActivity(intent);
         } catch (NumberFormatException ex) {
             System.out.println("SYÖTE VÄÄRÄSSÄ FORMAATISSA!");
+            Toast.makeText(getApplicationContext(), "NOT A VALID INPUT \n USE ONLY NUMBERS!", Toast.LENGTH_LONG).show();
         }
 
     }
