@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.text.SimpleDateFormat;
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
         //float currentSteps = StepCounterActivity.getInstance().resetSteps();
         //StepCounterActivity.getInstance().StartCounting();
+
     }
 
     /**
