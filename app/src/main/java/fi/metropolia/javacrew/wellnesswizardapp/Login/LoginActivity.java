@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,8 +50,8 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println("Tämä tulee elsestä");
         }
 
+        username.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
-        //Luodaan yhteys Enter-nappulaan
         enterButton = findViewById(R.id.enterButton);
 
         enterButton();
@@ -58,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private Henkilo loadData() {
-        //Load object
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefPut.getString("Henkilo", null);
@@ -69,7 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = username.getText().toString().toLowerCase(Locale.ROOT);
+                String name = username.getText().toString();
+
                 Intent enterIntent = new Intent(LoginActivity.this, UserCreateActivity.class);
                 enterIntent.putExtra(EXTRA_BERBA, name);
                 startActivity(enterIntent);
