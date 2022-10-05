@@ -112,7 +112,7 @@ public class Henkilo {
     }
 
     public void setSyödytKalorit(int syödytKalorit) {
-        this.syödytKalorit = syödytKalorit;
+        this.syödytKalorit += syödytKalorit;
     }
 
     @Override
