@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 
@@ -72,11 +75,21 @@ public class MainActivity extends AppCompatActivity {
         burnKilocaloriesAmount.setMax(2500);
         eatenKilocaloriesAmount.setMax(2500);
 
+        //
+        Henkilo currentPerson = Henkilo.getInstance();
+        if(currentPerson != null){
+            Henkilo.setInstance(currentPerson);
+            System.out.println("Tämä tulee mainActivityn iffistä" + currentPerson.toString() +" "+
+                    currentPerson.getSyödytKalorit());
+
+        }else{
+            System.out.println("Else call");
+        }
 
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
 
-        new CountDownTimer(300000,5000) {
+        new CountDownTimer(300000,10000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -174,12 +187,39 @@ public class MainActivity extends AppCompatActivity {
 
     public void currentEatenKcal(){
         eatenKcalText = findViewById(R.id.eatKcalNumberTxt);
-        eatenKcalText.setText(Double.toString(1500) + " Kcal");
-        eatenKilocaloriesAmount.setProgress(1500);
+        eatenKcalText.setText(Integer.toString(Henkilo.getInstance().getSyödytKalorit()) + " Kcal");
+        eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
+
+        System.out.println("Tämä tulee currentEatenCal " + Henkilo.getInstance().toString() +" "+
+                Henkilo.getInstance().getSyödytKalorit());
     }
 
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData(Henkilo.getInstance());
+    }
+
+    private void saveData(Henkilo henkilo) {
+        //Might be for another acivity.
+        SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = prefPut.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(henkilo);
+        prefEditor.putString("Henkilo", json);
+        prefEditor.apply();
+    }
+
+    private Henkilo loadData() {
+        //Load object
+        SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = prefPut.getString("Henkilo", null);
+        return gson.fromJson(json, Henkilo.class);
     }
 }
