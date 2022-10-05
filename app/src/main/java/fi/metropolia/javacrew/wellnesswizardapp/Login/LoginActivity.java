@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-import java.util.Locale;
 
 import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
@@ -24,7 +24,7 @@ import fi.metropolia.javacrew.wellnesswizardapp.UserCreateActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String EXTRA_BERBA = "username.EXTRA_BERBA";
+    public static final String EXTRA_BERBA = "username";
 
     private EditText username;
     private Button enterButton;
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         username.setFilters(new InputFilter[]{
                 new InputFilter() {
-                    public CharSequence filter(CharSequence charSequence, int start, int end, Spanned dst, int dstart, int dend) {
+                    public CharSequence filter(CharSequence charSequence, int start, int end, Spanned dst, int dStart, int dEnd) {
                         if (charSequence.equals("")){
                             return charSequence;
                         }
@@ -80,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = username.getText().toString();
+                if (TextUtils.isEmpty(name) || name.length() < 2){
+                    username.setError("Username must have atleast 2 letters");
+                    return;
+                }
                 Intent enterIntent = new Intent(LoginActivity.this, UserCreateActivity.class);
                 enterIntent.putExtra(EXTRA_BERBA, name);
                 startActivity(enterIntent);
