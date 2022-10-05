@@ -36,6 +36,7 @@ public class Henkilo {
         this.uni = new HashMap<>();
         this.syödytKalorit = 0;
     }
+
     //poista radiobuttonin jälkeen! ei tarpeellinen enään.
     public Henkilo(String nimi, int ika, int pituus, double paino) {
         this.nimi = nimi;
@@ -113,6 +114,10 @@ public class Henkilo {
 
     public void setSyödytKalorit(int syödytKalorit) {
         this.syödytKalorit += syödytKalorit;
+    }
+
+    public void nollaaSyodytKalorit() {
+        this.syödytKalorit = 0;
     }
 
     @Override
