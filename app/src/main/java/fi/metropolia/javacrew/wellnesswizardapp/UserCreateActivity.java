@@ -1,3 +1,9 @@
+/**
+ * Author @tristan
+ * Create user, name comes from login screen as a parameter.
+ * Take user inputs as parameters and create Henkilo as singleton
+ * save it also as a sharedPreferense.
+ * */
 package fi.metropolia.javacrew.wellnesswizardapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,12 +26,12 @@ import fi.metropolia.javacrew.wellnesswizardapp.Login.LoginActivity;
 public class UserCreateActivity extends AppCompatActivity {
 
     EditText name;
-    EditText gender;
     EditText age;
     EditText weight;
     EditText height;
     private String loginName;
     private Intent nextActivityIntent;
+    private RadioGroup genderSelect;
 
 
     @Override
@@ -32,12 +39,6 @@ public class UserCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_create);
         //starts
-        /**
-         * Author @tristan
-         * Create user, name comes from login screen as a parameter.
-         * Take user inputs as parameters and create Henkilo as singleton
-         * save it also as a sharedPreferense.
-         * */
         Intent intent = getIntent();
         loginName = intent.getStringExtra(LoginActivity.EXTRA_BERBA);
         SharedPreferences sharedPreferences = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
@@ -49,29 +50,39 @@ public class UserCreateActivity extends AppCompatActivity {
         } else {
             name.setText(loginName);
         }
-        gender = (EditText) findViewById(R.id.editTextTextPersonNameGender);
+        //gender = (EditText) findViewById(R.id.editTextTextPersonNameGender);
         age = (EditText) findViewById(R.id.editTextNumberAge);
         height = (EditText) findViewById(R.id.editTextNumberHeight);
         weight = (EditText) findViewById(R.id.editTextNumberDecimalWeight);
         //just to get some data, will eventually be removed.
         System.out.println(sharedPreferences);
 
+
+        genderSelect = findViewById(R.id.radioGroup);
+        genderSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                System.out.println(getGender());
+            }
+        });
+
         Button send = findViewById(R.id.buttonSendData);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //save data and move to next activity.
-
+                System.out.println("Luodaan henkiloa...");
                 Henkilo uusiKayttaja = createHenkilo();
 
                 if (uusiKayttaja == null) {
                     return;
                 }
-
+                System.out.println("Tallennetaan henkiloa");
                 saveData(uusiKayttaja);
                 Henkilo.setInstance(uusiKayttaja);
 
                 //Testi load old Henkilo
+                System.out.println("Yritetaan ladata henkiloa.");
                 Henkilo ladattu = loadData();
                 System.out.println(ladattu + " ladattu 60 sekunnissa");
                 nextActivityIntent = new Intent(UserCreateActivity.this, MainActivity.class);
@@ -84,8 +95,6 @@ public class UserCreateActivity extends AppCompatActivity {
 
     private Henkilo createHenkilo() {
         String personName = loginName;
-
-        String personGender = gender.getText().toString();
 
         int personAge;
         try {
@@ -120,12 +129,21 @@ public class UserCreateActivity extends AppCompatActivity {
             return null;
         }
 
-        if (personGender.isEmpty()) {
-            return new Henkilo(personName, personAge, personHeight, personWeight);
-        } else {
-            return new Henkilo(personName, personAge, personHeight, personWeight, personGender);
+        String personGender;
+        try {
+            personGender = getGender();
+        } catch (Exception ex) {
+            Toast.makeText(this, "Choose gender!", Toast.LENGTH_SHORT).show();
+            return null;
         }
 
+        if (personGender.isEmpty()) {
+            Toast.makeText(this, "Choose gender!", Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            System.out.println("Poistutaan createHenkilosta!");
+            return new Henkilo(personName, personAge, personHeight, personWeight, personGender);
+        }
     }
 
     private void saveData(Henkilo henkilo) {
@@ -145,5 +163,23 @@ public class UserCreateActivity extends AppCompatActivity {
         String json = prefPut.getString("Henkilo", null);
         Henkilo person = gson.fromJson(json, Henkilo.class);
         return person;
+    }
+
+    private String getGender() {
+        String gender;
+        int selectedId = (genderSelect).getCheckedRadioButtonId();
+        if (selectedId == R.id.radioButtonMale) {
+            gender = "Male";
+            return gender;
+        } else if (selectedId == R.id.radioButtonFemale) {
+            gender = "Female";
+            return gender;
+        } else if (selectedId == R.id.radioButtonOther) {
+            gender = "Other";
+            return gender;
+        } else {
+            gender = "";
+            return gender;
+        }
     }
 }

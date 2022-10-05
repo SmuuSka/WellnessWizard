@@ -37,15 +37,6 @@ public class Henkilo {
         this.syödytKalorit = 0;
     }
 
-    //poista radiobuttonin jälkeen! ei tarpeellinen enään.
-    public Henkilo(String nimi, int ika, int pituus, double paino) {
-        this.nimi = nimi;
-        this.ika = ika;
-        this.pituus = pituus;
-        this.paino = paino;
-        this.sukupuoli = "määrittelemätön";
-        this.uni = new HashMap<>();
-    }
 
 
     public void paivitaUni(double nukuttuAika) {
