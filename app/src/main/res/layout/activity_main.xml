@@ -8,16 +8,37 @@
 
 
     <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="108dp"
+        android:id="@+id/eatenKilocaloriesProgressBar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
         android:indeterminateOnly="false"
         android:progressDrawable="@drawable/circleforprogressbar"
         android:rotation="-90"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:progress="30">
+
+    </ProgressBar>
+
+    <ProgressBar
+        android:id="@+id/burnKilocalorieProgressBar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="20dp"
+        android:indeterminateOnly="false"
+
+        android:progressDrawable="@drawable/circleforprogressbar"
+        android:rotation="-90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -26,46 +47,33 @@
     </ProgressBar>
 
     <TextView
-        android:id="@+id/progressTxt"
+        android:id="@+id/eatKcalNumberTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/progressbar"
-        app:layout_constraintEnd_toEndOf="@+id/progressbar"
-        app:layout_constraintStart_toStartOf="@+id/progressbar"
-        app:layout_constraintTop_toTopOf="@+id/progressbar"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/eatenKilocaloriesProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/eatenKilocaloriesProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/eatenKilocaloriesProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/eatenKilocaloriesProgressBar"
         tools:text="30%">
 
     </TextView>
 
-    <Button
-        android:id="@+id/decrease"
+
+    <TextView
+        android:id="@+id/burnKcalNumberTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499">
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/burnKilocalorieProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/burnKilocalorieProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/burnKilocalorieProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/burnKilocalorieProgressBar"
+        tools:text="30%">
 
-    </Button>
-
-    <Button
-        android:id="@+id/increase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.804"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        tools:text="+">
-
-    </Button>
+    </TextView>
 
     <FrameLayout
         android:layout_width="0dp"
@@ -83,23 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation"/>
-
-    <TextView
-        android:id="@+id/textView_DailyStepsAmount"
-        android:layout_width="109dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="#F30606"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:menu="@menu/bottom_navigation" />
 
     <Button
         android:id="@+id/button_ResetStepsAmount"
@@ -115,20 +107,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.90999997" />
 
-    <Button
-        android:id="@+id/button_ShowDailySteps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="ShowCurrentSteps"
-        android:text="Show Steps"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/usernameTextView"
@@ -136,10 +114,37 @@
         android:layout_height="51dp"
         android:layout_marginTop="28dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/kilocalorBurnSummaryText"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="@string/caloriesBurnTxt"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/burnKilocalorieProgressBar" />
+
+    <TextView
+        android:id="@+id/calorieEatSummaryText"
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/caloriesEatTxt"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/kilocalorBurnSummaryText"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eatenKilocaloriesProgressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

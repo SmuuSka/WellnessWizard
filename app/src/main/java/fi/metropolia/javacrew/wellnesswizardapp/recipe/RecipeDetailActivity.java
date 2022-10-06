@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationBarView;
 
+import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.R;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingDetailActivity;
@@ -39,6 +41,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.textView_RecipeName)).setText(recipe.getNameOfDish());
         ((TextView)findViewById(R.id.textViewRecipeContent)).setText(recipe.getIngredientsList());
         ((TextView)findViewById(R.id.textView_Calories)).setText(Integer.toString(recipe.getCaloryAmount()));
+
+        Toast.makeText(getApplicationContext(),"HELLO " + Henkilo.getInstance().getNimi().toUpperCase()+ " \nREMEMBER EAT HEALTHY THINGS!",Toast.LENGTH_LONG).show();
 
         mealCaloriesAmount = recipe.getCaloryAmount();
 /**
@@ -78,5 +82,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public void SendEatenCalories(View view) {
 
         RecipeInfoHolder.getInstance().SetIntakeCaloriesAmount(mealCaloriesAmount);
+
+        Henkilo.getInstance().setSyödytKalorit(mealCaloriesAmount);
+
+        Intent intent = new Intent(RecipeDetailActivity.this, RecipeLibraryActivity.class);
+        startActivity(intent);
     }
 }

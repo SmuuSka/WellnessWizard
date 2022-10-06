@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 /**
  * Tassa on javaDoc
- * @tristan
- * version 0.1
- * */
+ *
+ * @tristan version 0.1
+ */
 
 
 public class Henkilo {
@@ -23,6 +24,7 @@ public class Henkilo {
     private int pituus;
     private double paino;
     private String sukupuoli;
+    private int syödytKalorit;
     private HashMap<String, Double> uni;
 
     public Henkilo(String nimi, int ika, int pituus, double paino, String sukupuoli) {
@@ -32,26 +34,24 @@ public class Henkilo {
         this.paino = paino;
         this.sukupuoli = sukupuoli;
         this.uni = new HashMap<>();
-
-    }
-
-    public Henkilo(String nimi, int ika, int pituus, double paino) {
-        this.nimi = nimi;
-        this.ika = ika;
-        this.pituus = pituus;
-        this.paino = paino;
-        this.sukupuoli = "määrittelemätön";
-        this.uni = new HashMap<>();
+        this.syödytKalorit = 0;
     }
 
 
-    public void paivitaUni(double nukuttuAika) {     
-        this.uni.put(java.time.LocalDate.now().toString(), nukuttuAika);
+
+    public void paivitaUni(double nukuttuAika) {
+        String date = java.time.LocalDate.now().toString();
+        if (this.uni.containsKey(date)) {
+            System.out.println("On jo nukuttu tänään!");
+        } else {
+            this.uni.put(java.time.LocalDate.now().toString(), nukuttuAika);
+            System.out.println("nukutaanpa sitten!!");
+        }
     }
 
     public void getUni() {
         for (Map.Entry<String, Double> entry : uni.entrySet()) {
-            System.out.println("Päivämäärä " + entry.getKey() + " nukuttu " + entry.getValue() + " tuntia" );
+            System.out.println("Päivämäärä " + entry.getKey() + " nukuttu " + entry.getValue() + " tuntia");
         }
     }
 
@@ -97,6 +97,18 @@ public class Henkilo {
 
     public void setSukupuoli(String sukupuoli) {
         this.sukupuoli = sukupuoli;
+    }
+
+    public int getSyödytKalorit() {
+        return syödytKalorit;
+    }
+
+    public void setSyödytKalorit(int syödytKalorit) {
+        this.syödytKalorit += syödytKalorit;
+    }
+
+    public void nollaaSyodytKalorit() {
+        this.syödytKalorit = 0;
     }
 
     @Override
