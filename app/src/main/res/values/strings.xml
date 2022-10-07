@@ -7,8 +7,12 @@
     <string name="enter_your_age">Enter your age</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="gender_optional">Gender(optional)</string>
-    <string name="caloriesEatTxt">Syödyt kalorit\n /2500kcal</string>
-    <string name="caloriesBurnTxt">Kulutetut kalorit\n /2500kcal</string>
+
+    <string name="caloriesEatenMaleTxt">Calories eaten\n /2500 Kcal</string>
+    <string name="caloriesEatenFemaleTxt">Calories eaten\n /2000 Kcal</string>
+
+    <string name="caloriesBurnMaleTxt">Burned calories\n /6500 Kcal</string>
+    <string name="caloriesBurnFemaleTxt">Burned calories\n /5500 Kcal</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
