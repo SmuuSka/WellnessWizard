@@ -30,7 +30,7 @@
             android:name=".MainActivity"
             android:exported="false">
         </activity>
-        <service android:name=".MyForegroundService"></service>
+        <service android:name=".ResetProgress"></service>
 
         <activity
             android:name=".trainingSessions.TrainingDetailActivity"

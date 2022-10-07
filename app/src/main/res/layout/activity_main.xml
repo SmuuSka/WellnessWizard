@@ -122,11 +122,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/kilocalorBurnSummaryText"
+        android:id="@+id/kilocaloriesBurnSummaryText"
         android:layout_width="149dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        android:text="@string/caloriesBurnTxt"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,14 +134,13 @@
         app:layout_constraintTop_toBottomOf="@+id/burnKilocalorieProgressBar" />
 
     <TextView
-        android:id="@+id/calorieEatSummaryText"
+        android:id="@+id/kilocaloriesEatenSummaryText"
         android:layout_width="151dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/caloriesEatTxt"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/kilocalorBurnSummaryText"
+        app:layout_constraintEnd_toStartOf="@+id/kilocaloriesBurnSummaryText"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eatenKilocaloriesProgressBar" />

@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
@@ -33,17 +33,17 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 public class MainActivity extends AppCompatActivity {
 
+    //60kg human burns 60kcal per kilometer
+    private final float kcalBurnPerMeter = 0.06f;
+
     private NavigationBarView bottomNav;
-    private int kilocaloriesDaily = 2500;
-    private TextView eatenKcalText, usernameTextView;
+    private TextView eatenKcalText, usernameTextView, eatenKcalSummaryTxt, burnKcalSummaryTxt, burnedKcalTextView;
     private ProgressBar burnKilocaloriesAmount, eatenKilocaloriesAmount;
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private  boolean moving = false;
-    private TextView burnedKcalTextView;
 
-    //60kg human burns 60kcal per kilometer
-    private final float kcalBurnPerMeter = 0.06f;
+
 
     /**
      * This is needed for stepCounter to work. Asks user permission to use Sensors. turo
@@ -69,20 +69,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent serviceIntent = new Intent(this,ResetProgress.class);
+        startService(serviceIntent);
+
         burnKilocaloriesAmount = findViewById(R.id.burnKilocalorieProgressBar);
         eatenKilocaloriesAmount = findViewById(R.id.eatenKilocaloriesProgressBar);
 
-        burnKilocaloriesAmount.setMax(2500);
-        eatenKilocaloriesAmount.setMax(2500);
+        eatenKcalText = findViewById(R.id.eatKcalNumberTxt);
+        eatenKcalSummaryTxt = findViewById(R.id.kilocaloriesEatenSummaryText);
 
-        //
+        burnedKcalTextView = findViewById(R.id.burnKcalNumberTxt);
+        burnKcalSummaryTxt = findViewById(R.id.kilocaloriesBurnSummaryText);
+
+
         Henkilo currentPerson = Henkilo.getInstance();
         if(currentPerson != null){
             Henkilo.setInstance(currentPerson);
-            System.out.println("Tämä tulee mainActivityn iffistä" + currentPerson.toString() +" "+
-                    currentPerson.getSyödytKalorit());
-
+            if(currentPerson.getSukupuoli().matches("Male")){
+                eatenKilocaloriesAmount.setMax(2000);
+                burnKilocaloriesAmount.setMax(6500);
+                eatenKcalSummaryTxt.setText(R.string.caloriesEatenMaleTxt);
+                burnKcalSummaryTxt.setText(R.string.caloriesBurnMaleTxt);
+            }else{
+                eatenKilocaloriesAmount.setMax(2000);
+                burnKilocaloriesAmount.setMax(5500);
+                eatenKcalSummaryTxt.setText(R.string.caloriesEatenFemaleTxt);
+                burnKcalSummaryTxt.setText(R.string.caloriesBurnFemaleTxt);
+            }
         }else{
+            //Tähän joku poikkeus
             System.out.println("Else call");
         }
 
@@ -95,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                 currentBurnedKcal();
                 currentEatenKcal();
+
             }
 
             public void onFinish() {
@@ -175,18 +191,17 @@ public class MainActivity extends AppCompatActivity {
      */
     public void currentBurnedKcal() {
 
-        //float currentSteps = StepsCounter.getInstance().getSteps();
-        int currentSteps = 10000;
+        float currentSteps = Henkilo.getInstance().getSteps();
         float meterTravelled = (currentSteps * 0.75f);
         float burnedKilocalories = (meterTravelled * kcalBurnPerMeter);
-        burnedKcalTextView = findViewById(R.id.burnKcalNumberTxt);
+
         burnedKcalTextView.setText(Double.toString(burnedKilocalories) + " Kcal");
         int roundKilocalories = Math.round(burnedKilocalories);
         burnKilocaloriesAmount.setProgress(roundKilocalories);
     }
 
     public void currentEatenKcal(){
-        eatenKcalText = findViewById(R.id.eatKcalNumberTxt);
+
         eatenKcalText.setText(Integer.toString(Henkilo.getInstance().getSyödytKalorit()) + " Kcal");
         eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
 
@@ -198,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
 
     @Override
     protected void onPause() {
