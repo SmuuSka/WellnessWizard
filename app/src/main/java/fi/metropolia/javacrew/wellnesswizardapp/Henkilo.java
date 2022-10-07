@@ -25,6 +25,7 @@ public class Henkilo {
     private double paino;
     private String sukupuoli;
     private int syödytKalorit;
+    private float steps;
     private HashMap<String, Double> uni;
 
     public Henkilo(String nimi, int ika, int pituus, double paino, String sukupuoli) {
@@ -35,6 +36,7 @@ public class Henkilo {
         this.sukupuoli = sukupuoli;
         this.uni = new HashMap<>();
         this.syödytKalorit = 0;
+        this.steps = 0;
     }
 
 
@@ -53,6 +55,17 @@ public class Henkilo {
         for (Map.Entry<String, Double> entry : uni.entrySet()) {
             System.out.println("Päivämäärä " + entry.getKey() + " nukuttu " + entry.getValue() + " tuntia");
         }
+    }
+
+    public float getSteps() {
+        return steps;
+    }
+
+    public void setSteps(float steps) {
+        this.steps += steps;
+    }
+    public void resetSteps() {
+        this.steps = 0;
     }
 
     public static Henkilo getInstance() {
