@@ -16,7 +16,6 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-
 import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.R;
@@ -59,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (charSequence.toString().matches("[a-zA-Z]+")){
                             return  charSequence;
                         }
-                        return username.getText().toString();
+                        return " ";
                     }
                 }
         });
