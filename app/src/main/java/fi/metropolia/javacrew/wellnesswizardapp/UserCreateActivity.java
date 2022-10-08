@@ -22,6 +22,10 @@ import com.google.gson.Gson;
 
 import fi.metropolia.javacrew.wellnesswizardapp.Login.LoginActivity;
 
+/**
+ * Takes user data form app user and creates a Henkilo object with given information.
+ * @author tristan
+ */
 
 public class UserCreateActivity extends AppCompatActivity {
 
