@@ -9,12 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
 
 import java.time.Instant;
@@ -25,6 +23,11 @@ import java.time.format.DateTimeFormatter;
 
 
 @RequiresApi(api = Build.VERSION_CODES.O)
+
+/**
+ * Reset progress class holding reset progress functionality
+ * @author Samu
+ */
 public class ResetProgress extends Service {
     private boolean isReseted = false;
     private static String CURRENT_USER_TIMEZONE = "Europe/Helsinki";
@@ -36,13 +39,13 @@ public class ResetProgress extends Service {
             public void run() {
                 while (true){
                     String helsinki = getCurrentTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-                    String midnighT = midnight.format(DateTimeFormatter.ofPattern("HH:mm"));
+                    String midnightToString = midnight.format(DateTimeFormatter.ofPattern("HH:mm"));
                     if(helsinki.equals(midnight)){
                         resetAllProgressData();
                     }
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(59000);
                     }catch (InterruptedException e){
                         e.printStackTrace();
                     }
@@ -53,7 +56,7 @@ public class ResetProgress extends Service {
         NotificationChannel channel = new NotificationChannel(CHANNELID,CHANNELID, NotificationManager.IMPORTANCE_LOW);
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
         Notification.Builder notification = new Notification.Builder(this,CHANNELID)
-                .setContentText("Reset servise is running")
+                .setContentText("Reset service is running")
                 .setContentTitle("Reset Progress Service")
                 .setSmallIcon(R.drawable.vector);
         startForeground(1001,notification.build());
@@ -66,6 +69,13 @@ public class ResetProgress extends Service {
         return null;
     }
 
+    /**
+     * getCurrentTime returning time from java.time.instant
+     * and method fix the time to Helsinki timezone
+     * and return at localTime
+     * @return
+     */
+
     public LocalTime getCurrentTime(){
         Instant now = Instant.now();
         ZonedDateTime time = ZonedDateTime.ofInstant(now,
@@ -76,6 +86,9 @@ public class ResetProgress extends Service {
 
     }
 
+    /**
+     * resetAllProgressData method find the user instance and reset all user progress
+     */
     private void resetAllProgressData(){
         Henkilo.getInstance().nollaaSyodytKalorit();
         Henkilo.getInstance().resetSteps();

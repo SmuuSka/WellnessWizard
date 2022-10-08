@@ -39,7 +39,7 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 public class MainActivity extends AppCompatActivity {
 
-    private float kcalBurnPerMeter = 0.06f;
+    private float kcalBurnPerMeter = 0f;
 
     private NavigationBarView bottomNav;
     private TextView eatenKcalText, usernameTextView, eatenKcalSummaryTxt, burnKcalSummaryTxt, burnedKcalTextView, dailySteps;
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This one is needed for showing dailySteps for user at real time.
-     * @param
+     *
      */
 
     private void showDailySteps(){
@@ -194,6 +194,10 @@ public class MainActivity extends AppCompatActivity {
         dailySteps.setText(dailyStepsToString + basicText);
     }
 
+    /**
+     * currentBurnedKcal method get steps from user instance
+     * convert steps to travel meters and show current progress
+     */
 
     private void currentBurnedKcal() {
 
@@ -206,12 +210,20 @@ public class MainActivity extends AppCompatActivity {
         burnKilocaloriesAmount.setProgress(roundKilocalories);
     }
 
+    /**
+     * currentEatenKcal method get eaten kilocalories from user instance
+     * and show current eaten kilocalories
+     */
+
     private void currentEatenKcal(){
 
         eatenKcalText.setText(Integer.toString(Henkilo.getInstance().getSyödytKalorit()) + " Kcal");
         eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
     }
 
+    /**
+     * timerStart method creating a new timer for updating main activity UI-elements
+     */
     private void timerStart(){
         timer = new CountDownTimer(300000,10000) {
 
@@ -227,6 +239,9 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * timerStop method stops the timer
+     */
     private void timerStop(){
         timer.cancel();
     }
