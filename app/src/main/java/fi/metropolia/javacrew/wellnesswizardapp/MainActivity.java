@@ -39,8 +39,7 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 public class MainActivity extends AppCompatActivity {
 
-    private float kcalBurnPerMeter = 0f;
-
+    private float kcalBurnPerMeter;
     private NavigationBarView bottomNav;
     private TextView eatenKcalText, usernameTextView, eatenKcalSummaryTxt, burnKcalSummaryTxt, burnedKcalTextView, dailySteps;
     private ProgressBar burnKilocaloriesAmount, eatenKilocaloriesAmount;
@@ -94,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
         basicText += getResources().getString(R.string.dailySteps);
         dailySteps.setText(basicText);
 
-
         Henkilo currentPerson = Henkilo.getInstance();
         kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
-        System.out.println("Factor for burn kcal " + kcalBurnPerMeter);
+
+
+
+
         if(currentPerson != null){
             Henkilo.setInstance(currentPerson);
             if(currentPerson.getSukupuoli().matches("Male")){
@@ -118,11 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
-
-
-        /**
-         * Countdown timer runs 300 seconds and updating UI-elements after every 10 seconds
-         */
 
 
         /**
@@ -190,7 +186,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void showDailySteps(){
-        String dailyStepsToString = Float.toString(Henkilo.getInstance().getSteps());
+        int dailyStepsToInt = (Math.round(Henkilo.getInstance().getSteps()));
+        String dailyStepsToString = Integer.toString(dailyStepsToInt);
         dailySteps.setText(dailyStepsToString + basicText);
     }
 
@@ -202,10 +199,12 @@ public class MainActivity extends AppCompatActivity {
     private void currentBurnedKcal() {
 
         float currentSteps = Henkilo.getInstance().getSteps();
+        float currentCompensationSteps = Henkilo.getInstance().getCompensationSteps();
+        currentSteps += currentCompensationSteps;
         float stepsToMeter = (currentSteps * 0.75f);
         float burnedKilocalories = (stepsToMeter * kcalBurnPerMeter);
 
-        burnedKcalTextView.setText(Double.toString(burnedKilocalories) + " Kcal");
+        burnedKcalTextView.setText(Float.toString(burnedKilocalories) + " Kcal");
         int roundKilocalories = Math.round(burnedKilocalories);
         burnKilocaloriesAmount.setProgress(roundKilocalories);
     }
@@ -228,13 +227,11 @@ public class MainActivity extends AppCompatActivity {
         timer = new CountDownTimer(300000,10000) {
 
             public void onTick(long millisUntilFinished) {
-                Log.d("Timer", "Timer is alive " + millisUntilFinished);
                 currentBurnedKcal();
                 currentEatenKcal();
                 showDailySteps();
             }
             public void onFinish() {
-                Log.d("Timer", "Timer is dead");
             }
         }.start();
     }
