@@ -50,12 +50,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="16sp"
+        android:text="0 Kcal"
         app:layout_constraintBottom_toBottomOf="@+id/eatenKilocaloriesProgressBar"
         app:layout_constraintEnd_toEndOf="@+id/eatenKilocaloriesProgressBar"
         app:layout_constraintStart_toStartOf="@+id/eatenKilocaloriesProgressBar"
-        app:layout_constraintTop_toTopOf="@+id/eatenKilocaloriesProgressBar"
-        tools:text="30%">
-
+        app:layout_constraintTop_toTopOf="@+id/eatenKilocaloriesProgressBar">
     </TextView>
 
 
@@ -65,11 +64,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="16sp"
+        android:text="0 Kcal"
         app:layout_constraintBottom_toBottomOf="@+id/burnKilocalorieProgressBar"
         app:layout_constraintEnd_toEndOf="@+id/burnKilocalorieProgressBar"
         app:layout_constraintStart_toStartOf="@+id/burnKilocalorieProgressBar"
-        app:layout_constraintTop_toTopOf="@+id/burnKilocalorieProgressBar"
-        tools:text="30%">
+        app:layout_constraintTop_toTopOf="@+id/burnKilocalorieProgressBar">
 
     </TextView>
 

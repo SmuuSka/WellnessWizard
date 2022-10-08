@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.*;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.Recipe;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeDetailActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeInfoHolder;

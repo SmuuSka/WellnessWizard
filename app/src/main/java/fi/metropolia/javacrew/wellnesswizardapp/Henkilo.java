@@ -1,5 +1,9 @@
 package fi.metropolia.javacrew.wellnesswizardapp;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +65,7 @@ public class Henkilo {
      * takse in a number value and adds it tu hashmap with the current date.
      * @param nukuttuAika is the value the user gives and it describes the slept time.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void paivitaUni(double nukuttuAika) {
         String date = java.time.LocalDate.now().toString();
         if (this.uni.containsKey(date)) {

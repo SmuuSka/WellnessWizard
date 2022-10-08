@@ -1,12 +1,10 @@
 package fi.metropolia.javacrew.wellnesswizardapp;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -18,12 +16,9 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 
@@ -33,14 +28,13 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 /**
  * Main Activity represents application frontpage
- *
+ * and hold methods to show user progress in UI
  * @author Samu
  */
 
 public class MainActivity extends AppCompatActivity {
 
-    private float kcalBurnPerMeter = 0f;
-
+    private float kcalBurnPerMeter;
     private NavigationBarView bottomNav;
     private TextView eatenKcalText, usernameTextView, eatenKcalSummaryTxt, burnKcalSummaryTxt, burnedKcalTextView, dailySteps;
     private ProgressBar burnKilocaloriesAmount, eatenKilocaloriesAmount;
@@ -49,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String basicText;
     private  boolean moving = false;
     private CountDownTimer timer;
+    private Henkilo currentPerson;
 
 
 
@@ -80,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this,ResetProgress.class);
         startService(serviceIntent);
 
+        checkIfUserExists();
+
         burnKilocaloriesAmount = findViewById(R.id.burnKilocalorieProgressBar);
         eatenKilocaloriesAmount = findViewById(R.id.eatenKilocaloriesProgressBar);
 
@@ -94,40 +91,12 @@ public class MainActivity extends AppCompatActivity {
         basicText += getResources().getString(R.string.dailySteps);
         dailySteps.setText(basicText);
 
-
-        Henkilo currentPerson = Henkilo.getInstance();
+        currentPerson = Henkilo.getInstance();
         kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
-        System.out.println("Factor for burn kcal " + kcalBurnPerMeter);
-        if(currentPerson != null){
-            Henkilo.setInstance(currentPerson);
-            if(currentPerson.getSukupuoli().matches("Male")){
-                eatenKilocaloriesAmount.setMax(2000);
-                burnKilocaloriesAmount.setMax(6500);
-                eatenKcalSummaryTxt.setText(R.string.caloriesEatenMaleTxt);
-                burnKcalSummaryTxt.setText(R.string.caloriesBurnMaleTxt);
-            }else{
-                eatenKilocaloriesAmount.setMax(2000);
-                burnKilocaloriesAmount.setMax(5500);
-                eatenKcalSummaryTxt.setText(R.string.caloriesEatenFemaleTxt);
-                burnKcalSummaryTxt.setText(R.string.caloriesBurnFemaleTxt);
-            }
-        }else{
-            //Tähän joku poikkeus
-            System.out.println("Else call");
-        }
 
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
 
-
-        /**
-         * Countdown timer runs 300 seconds and updating UI-elements after every 10 seconds
-         */
-
-
-        /**
-         * Is needed for Sensor usage -> checks user permission status turo
-         */
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACTIVITY_RECOGNITION) ==
                 PackageManager.PERMISSION_DENIED) {
@@ -144,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
             moving = false;
         }
 
-        /**
-         * Navigation controller
-         */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -190,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void showDailySteps(){
-        String dailyStepsToString = Float.toString(Henkilo.getInstance().getSteps());
+        int dailyStepsToInt = (Math.round(Henkilo.getInstance().getSteps()));
+        String dailyStepsToString = Integer.toString(dailyStepsToInt);
         dailySteps.setText(dailyStepsToString + basicText);
     }
 
@@ -202,10 +169,12 @@ public class MainActivity extends AppCompatActivity {
     private void currentBurnedKcal() {
 
         float currentSteps = Henkilo.getInstance().getSteps();
+        float currentCompensationSteps = Henkilo.getInstance().getCompensationSteps();
+        currentSteps += currentCompensationSteps;
         float stepsToMeter = (currentSteps * 0.75f);
         float burnedKilocalories = (stepsToMeter * kcalBurnPerMeter);
 
-        burnedKcalTextView.setText(Double.toString(burnedKilocalories) + " Kcal");
+        burnedKcalTextView.setText(burnedKilocalories + " Kcal");
         int roundKilocalories = Math.round(burnedKilocalories);
         burnKilocaloriesAmount.setProgress(roundKilocalories);
     }
@@ -217,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void currentEatenKcal(){
 
-        eatenKcalText.setText(Integer.toString(Henkilo.getInstance().getSyödytKalorit()) + " Kcal");
+        eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() + " Kcal");
         eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
     }
 
@@ -228,15 +197,44 @@ public class MainActivity extends AppCompatActivity {
         timer = new CountDownTimer(300000,10000) {
 
             public void onTick(long millisUntilFinished) {
-                Log.d("Timer", "Timer is alive " + millisUntilFinished);
                 currentBurnedKcal();
                 currentEatenKcal();
                 showDailySteps();
             }
             public void onFinish() {
-                Log.d("Timer", "Timer is dead");
             }
         }.start();
+    }
+
+    /**
+     * checkIfUserExists method check if user exists
+     * if not
+     * @throws NullPointerException
+     *else
+     * set person to instance
+     * set right text for the UI-elements
+     *
+     */
+    private void checkIfUserExists(){
+        try {
+            if(currentPerson != null){
+                Henkilo.setInstance(currentPerson);
+                if(currentPerson.getSukupuoli().matches("Male")){
+                    eatenKilocaloriesAmount.setMax(2000);
+                    burnKilocaloriesAmount.setMax(6500);
+                    eatenKcalSummaryTxt.setText(R.string.caloriesEatenMaleTxt);
+                    burnKcalSummaryTxt.setText(R.string.caloriesBurnMaleTxt);
+                }else{
+                    eatenKilocaloriesAmount.setMax(2000);
+                    burnKilocaloriesAmount.setMax(5500);
+                    eatenKcalSummaryTxt.setText(R.string.caloriesEatenFemaleTxt);
+                    burnKcalSummaryTxt.setText(R.string.caloriesBurnFemaleTxt);
+                }
+
+            }
+        }catch (Exception e){
+            throw new NullPointerException();
+        }
     }
 
     /**
@@ -246,6 +244,9 @@ public class MainActivity extends AppCompatActivity {
         timer.cancel();
     }
 
+    /**
+     * Back-button disabled in main activity
+     */
     @Override
     public void onBackPressed() {
 
@@ -265,6 +266,10 @@ public class MainActivity extends AppCompatActivity {
         timerStart();
     }
 
+    /**
+     * Defined in Henkilo-class
+     *
+     */
     private void saveData(Henkilo henkilo) {
         //Might be for another acivity.
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
@@ -273,13 +278,5 @@ public class MainActivity extends AppCompatActivity {
         String json = gson.toJson(henkilo);
         prefEditor.putString("Henkilo", json);
         prefEditor.apply();
-    }
-
-    private Henkilo loadData() {
-        //Load object
-        SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = prefPut.getString("Henkilo", null);
-        return gson.fromJson(json, Henkilo.class);
     }
 }
