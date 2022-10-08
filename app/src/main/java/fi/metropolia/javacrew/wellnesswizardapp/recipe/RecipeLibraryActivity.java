@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.*;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepCounterActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;

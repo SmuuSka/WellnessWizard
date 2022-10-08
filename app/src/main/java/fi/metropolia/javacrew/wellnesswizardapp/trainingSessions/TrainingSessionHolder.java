@@ -5,7 +5,7 @@ import android.media.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.*;
 
 /**
  * @author turovaarti

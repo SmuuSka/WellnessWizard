@@ -43,8 +43,8 @@ public class ResetProgress extends Service {
      *
      * @param intent intent which keeped alive
      * @param flags controlling the task
-     * @param startId
-     * @return
+     * @param startId id for the task
+     * @return overrided onStartCommand
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

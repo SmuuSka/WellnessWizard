@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.*;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingDetailActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 

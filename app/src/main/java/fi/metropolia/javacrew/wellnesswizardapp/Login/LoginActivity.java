@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 
 import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
-import fi.metropolia.javacrew.wellnesswizardapp.R;
+import fi.metropolia.javacrew.wellnesswizardapp.*;
 import fi.metropolia.javacrew.wellnesswizardapp.UserCreateActivity;
 
 /**
