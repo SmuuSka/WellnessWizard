@@ -80,7 +80,6 @@ public class ResetProgress extends Service {
         Instant now = Instant.now();
         ZonedDateTime time = ZonedDateTime.ofInstant(now,
                              ZoneId.of(CURRENT_USER_TIMEZONE));
-        System.out.println(midnight);
         LocalTime helsinki = time.toLocalTime();
         return helsinki;
 
