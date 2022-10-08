@@ -97,10 +97,19 @@ public class UserCreateActivity extends AppCompatActivity {
         //ends
     }
 
+    /**
+     * Create a Henkilo object with given user inputs, validates the inputs for wanted values.
+     * @return Henkilo object with user inputs as constructor parameters.
+     */
     private Henkilo createHenkilo() {
         String personName = loginName;
 
         int personAge;
+        /**
+         * Tries to make an integer from value, and checks if value is between 18 and 100
+         * if not, the application pushes a notification to the screen for the user
+         * and asks to give wanted values.
+         */
         try {
             personAge = Integer.parseInt(age.getText().toString());
             if (personAge < 18 || personAge > 100) {
@@ -112,6 +121,11 @@ public class UserCreateActivity extends AppCompatActivity {
         }
 
         int personHeight;
+        /**
+         * Tries to make an integer from value, and checks if value is between 120 and 250
+         * if not, the application pushes a notification to the screen for the user
+         * and asks to give wanted values.
+         */
         try {
             personHeight = Integer.parseInt(height.getText().toString());
             if (personHeight < 120 || personHeight > 250) {
@@ -123,6 +137,11 @@ public class UserCreateActivity extends AppCompatActivity {
         }
 
         double personWeight;
+        /**
+         * Tries to make an double from value, and checks if value is between 40.0 and 200.0
+         * if not, the application pushes a notification to the screen for the user
+         * and asks to give wanted values.
+         */
         try {
             personWeight = Double.parseDouble(weight.getText().toString());
             if (personWeight < 40.0 || personWeight > 200.0) {
@@ -134,6 +153,9 @@ public class UserCreateActivity extends AppCompatActivity {
         }
 
         String personGender;
+        /**
+         * Checks if user hase chosen a gender, if not pushes a notification to choose gender.
+         */
         try {
             personGender = getGender();
         } catch (Exception ex) {
@@ -150,6 +172,10 @@ public class UserCreateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * creates a json from the Henkilo object and saves it to shared preferences.
+     * @param henkilo
+     */
     private void saveData(Henkilo henkilo) {
         //Might be for another acivity.
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
@@ -160,6 +186,10 @@ public class UserCreateActivity extends AppCompatActivity {
         prefEditor.apply();
     }
 
+    /**
+     * Creates a Henkilo object from the saved json and returns a Henkilo object.
+     * @return henkilo
+     */
     private Henkilo loadData() {
         //Load object
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
@@ -169,6 +199,10 @@ public class UserCreateActivity extends AppCompatActivity {
         return person;
     }
 
+    /**
+     * cheks what radio button is selected and returns gender as string accordingly.
+     * @return gender as String value.
+     */
     private String getGender() {
         String gender;
         int selectedId = (genderSelect).getCheckedRadioButtonId();
