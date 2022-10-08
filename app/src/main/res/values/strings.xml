@@ -8,12 +8,13 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="gender_optional">Gender(optional)</string>
 
-    <string name="caloriesEatenMaleTxt">Calories eaten\n /2500 Kcal</string>
-    <string name="caloriesEatenFemaleTxt">Calories eaten\n /2000 Kcal</string>
+    <string name="caloriesEatenMaleTxt">Calories Eaten\n /2500 Kcal</string>
+    <string name="caloriesEatenFemaleTxt">Calories Eaten\n /2000 Kcal</string>
 
-    <string name="caloriesBurnMaleTxt">Burned calories\n /6500 Kcal</string>
-    <string name="caloriesBurnFemaleTxt">Burned calories\n /5500 Kcal</string>
+    <string name="caloriesBurnMaleTxt">Burned Calories\n /6500 Kcal</string>
+    <string name="caloriesBurnFemaleTxt">Burned Calories\n /5500 Kcal</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
+    <string name="dailySteps">Daily Steps</string>
 </resources>
