@@ -3,6 +3,7 @@ package fi.metropolia.javacrew.wellnesswizardapp;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -14,10 +15,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,25 +27,30 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
-
 import fi.metropolia.javacrew.wellnesswizardapp.recipe.RecipeLibraryActivity;
 import fi.metropolia.javacrew.wellnesswizardapp.stepCounter.StepsCounter;
 import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSessionsLibraryActivity;
 
+/**
+ * Main Activity represents application frontpage
+ *
+ * @author Samu
+ */
+
 public class MainActivity extends AppCompatActivity {
 
+    private float kcalBurnPerMeter = 0f;
+
     private NavigationBarView bottomNav;
-    private int kilocaloriesDaily = 2500;
-    private TextView eatenKcalText, usernameTextView;
+    private TextView eatenKcalText, usernameTextView, eatenKcalSummaryTxt, burnKcalSummaryTxt, burnedKcalTextView, dailySteps;
     private ProgressBar burnKilocaloriesAmount, eatenKilocaloriesAmount;
     private SensorManager sensorManager;
     private Sensor stepSensor;
+    private String basicText;
     private  boolean moving = false;
-    private TextView burnedKcalTextView;
+    private CountDownTimer timer;
 
-    //60kg human burns 60kcal per kilometer
-    private final float kcalBurnPerMeter = 0.06f;
+
 
     /**
      * This is needed for stepCounter to work. Asks user permission to use Sensors. turo
@@ -64,43 +71,59 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent serviceIntent = new Intent(this,ResetProgress.class);
+        startService(serviceIntent);
+
         burnKilocaloriesAmount = findViewById(R.id.burnKilocalorieProgressBar);
         eatenKilocaloriesAmount = findViewById(R.id.eatenKilocaloriesProgressBar);
 
-        burnKilocaloriesAmount.setMax(2500);
-        eatenKilocaloriesAmount.setMax(2500);
+        eatenKcalText = findViewById(R.id.eatKcalNumberTxt);
+        eatenKcalSummaryTxt = findViewById(R.id.kilocaloriesEatenSummaryText);
 
-        //
+        burnedKcalTextView = findViewById(R.id.burnKcalNumberTxt);
+        burnKcalSummaryTxt = findViewById(R.id.kilocaloriesBurnSummaryText);
+
+        dailySteps = findViewById(R.id.dailyStepsTextView);
+        basicText = "\n";
+        basicText += getResources().getString(R.string.dailySteps);
+        dailySteps.setText(basicText);
+
+
         Henkilo currentPerson = Henkilo.getInstance();
+        kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
+        System.out.println("Factor for burn kcal " + kcalBurnPerMeter);
         if(currentPerson != null){
             Henkilo.setInstance(currentPerson);
-            System.out.println("Tämä tulee mainActivityn iffistä" + currentPerson.toString() +" "+
-                    currentPerson.getSyödytKalorit());
-
+            if(currentPerson.getSukupuoli().matches("Male")){
+                eatenKilocaloriesAmount.setMax(2000);
+                burnKilocaloriesAmount.setMax(6500);
+                eatenKcalSummaryTxt.setText(R.string.caloriesEatenMaleTxt);
+                burnKcalSummaryTxt.setText(R.string.caloriesBurnMaleTxt);
+            }else{
+                eatenKilocaloriesAmount.setMax(2000);
+                burnKilocaloriesAmount.setMax(5500);
+                eatenKcalSummaryTxt.setText(R.string.caloriesEatenFemaleTxt);
+                burnKcalSummaryTxt.setText(R.string.caloriesBurnFemaleTxt);
+            }
         }else{
+            //Tähän joku poikkeus
             System.out.println("Else call");
         }
 
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
 
-        new CountDownTimer(300000,10000) {
 
-            public void onTick(long millisUntilFinished) {
+        /**
+         * Countdown timer runs 300 seconds and updating UI-elements after every 10 seconds
+         */
 
-                currentBurnedKcal();
-                currentEatenKcal();
-            }
-
-            public void onFinish() {
-
-            }
-        }.start();
 
         /**
          * Is needed for Sensor usage -> checks user permission status turo
@@ -115,16 +138,17 @@ public class MainActivity extends AppCompatActivity {
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
             stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             moving = true;
-            System.out.println("SENSORI LÖYDETTY!!");
+            System.out.println("Sensor found!!");
         }else {
-            System.out.println("KAIKKI PASKANA!");
+            System.out.println("Sensor not found!");
             moving = false;
         }
 
-
+        /**
+         * Navigation controller
+         */
         bottomNav = findViewById(R.id.bottomNavID);
         bottomNav.getMenu().getItem(1).setChecked(true);
-
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -143,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        timerStart();
     }
 
     /**
@@ -159,39 +185,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Remove this funcion before final build . turo
-     * @param view
+     * This one is needed for showing dailySteps for user at real time.
+     *
      */
-    public void ResetAmount(View view) {
 
-        //float currentSteps = StepCounterActivity.getInstance().resetSteps();
-        //StepCounterActivity.getInstance().StartCounting();
-
+    private void showDailySteps(){
+        String dailyStepsToString = Float.toString(Henkilo.getInstance().getSteps());
+        dailySteps.setText(dailyStepsToString + basicText);
     }
 
     /**
-     * This one is needed for showing dailySteps for user at real time.
-     * @param
+     * currentBurnedKcal method get steps from user instance
+     * convert steps to travel meters and show current progress
      */
-    public void currentBurnedKcal() {
 
-        //float currentSteps = StepsCounter.getInstance().getSteps();
-        int currentSteps = 10000;
-        float meterTravelled = (currentSteps * 0.75f);
-        float burnedKilocalories = (meterTravelled * kcalBurnPerMeter);
-        burnedKcalTextView = findViewById(R.id.burnKcalNumberTxt);
+    private void currentBurnedKcal() {
+
+        float currentSteps = Henkilo.getInstance().getSteps();
+        float stepsToMeter = (currentSteps * 0.75f);
+        float burnedKilocalories = (stepsToMeter * kcalBurnPerMeter);
+
         burnedKcalTextView.setText(Double.toString(burnedKilocalories) + " Kcal");
         int roundKilocalories = Math.round(burnedKilocalories);
         burnKilocaloriesAmount.setProgress(roundKilocalories);
     }
 
-    public void currentEatenKcal(){
-        eatenKcalText = findViewById(R.id.eatKcalNumberTxt);
+    /**
+     * currentEatenKcal method get eaten kilocalories from user instance
+     * and show current eaten kilocalories
+     */
+
+    private void currentEatenKcal(){
+
         eatenKcalText.setText(Integer.toString(Henkilo.getInstance().getSyödytKalorit()) + " Kcal");
         eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
+    }
 
-        System.out.println("Tämä tulee currentEatenCal " + Henkilo.getInstance().toString() +" "+
-                Henkilo.getInstance().getSyödytKalorit());
+    /**
+     * timerStart method creating a new timer for updating main activity UI-elements
+     */
+    private void timerStart(){
+        timer = new CountDownTimer(300000,10000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.d("Timer", "Timer is alive " + millisUntilFinished);
+                currentBurnedKcal();
+                currentEatenKcal();
+                showDailySteps();
+            }
+            public void onFinish() {
+                Log.d("Timer", "Timer is dead");
+            }
+        }.start();
+    }
+
+    /**
+     * timerStop method stops the timer
+     */
+    private void timerStop(){
+        timer.cancel();
     }
 
     @Override
@@ -199,10 +251,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
+        timerStop();
         saveData(Henkilo.getInstance());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        timerStart();
     }
 
     private void saveData(Henkilo henkilo) {

@@ -21,8 +21,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:progress="30">
+        app:layout_constraintVertical_bias="0.0">
 
     </ProgressBar>
 
@@ -41,8 +40,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:progress="30">
+        app:layout_constraintVertical_bias="0.0">
 
     </ProgressBar>
 
@@ -93,20 +91,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation" />
 
-    <Button
-        android:id="@+id/button_ResetStepsAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="ResetAmount"
-        android:text="RESET"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.90999997" />
-
 
     <TextView
         android:id="@+id/usernameTextView"
@@ -122,11 +106,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/kilocalorBurnSummaryText"
+        android:id="@+id/kilocaloriesBurnSummaryText"
         android:layout_width="149dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        android:text="@string/caloriesBurnTxt"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,16 +118,27 @@
         app:layout_constraintTop_toBottomOf="@+id/burnKilocalorieProgressBar" />
 
     <TextView
-        android:id="@+id/calorieEatSummaryText"
+        android:id="@+id/kilocaloriesEatenSummaryText"
         android:layout_width="151dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/caloriesEatTxt"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/kilocalorBurnSummaryText"
+        app:layout_constraintEnd_toStartOf="@+id/kilocaloriesBurnSummaryText"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eatenKilocaloriesProgressBar" />
+
+    <TextView
+        android:id="@+id/dailyStepsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="312dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
