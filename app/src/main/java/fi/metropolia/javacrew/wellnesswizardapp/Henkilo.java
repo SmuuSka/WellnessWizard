@@ -37,11 +37,11 @@ public class Henkilo {
      * Constructor for person class.
      * Defines name,age,height,weight,gender.
      * States for sleep, eaten calories and steps.
-     * @param nimi
-     * @param ika
-     * @param pituus
-     * @param paino
-     * @param sukupuoli
+     * @param nimi name of Henkilo
+     * @param ika age of Henkilo
+     * @param pituus height of Henkilo
+     * @param paino weight of Henkilo
+     * @param sukupuoli gender of Henkilo
      */
 
     public Henkilo(String nimi, int ika, int pituus, double paino, String sukupuoli) {
@@ -59,7 +59,7 @@ public class Henkilo {
     /**
      * Method to add your sleep for the past night
      * takse in a number value and adds it tu hashmap with the current date.
-     * @param nukuttuAika
+     * @param nukuttuAika is the value the user gives and it describes the slept time.
      */
     public void paivitaUni(double nukuttuAika) {
         String date = java.time.LocalDate.now().toString();
@@ -82,7 +82,8 @@ public class Henkilo {
 
     /**
      * Returns the state of compensationSteps of Henkilo object.
-     * @return
+     * described elsewhere.
+     * @return compensationSteps
      */
     public float getCompensationSteps() {
         return compensationSteps;
@@ -105,7 +106,7 @@ public class Henkilo {
 
     /**
      * Returns the current amount of steps of the Henkilo object.
-     * @return
+     * @return steps
      */
     public float getSteps() {
         return steps;
@@ -128,7 +129,7 @@ public class Henkilo {
 
     /**
      * Returns the singleton, instance of a Henkilo object.
-     * @return
+     * @return instance of Henkilo object
      */
     public static Henkilo getInstance() {
         return ourInstance;
@@ -144,7 +145,7 @@ public class Henkilo {
 
     /**
      * Returns the age of the Henkilo object.
-     * @return
+     * @return age
      */
     public int getIka() {
         return ika;
@@ -152,7 +153,7 @@ public class Henkilo {
 
     /**
      * Returns the height of the Henkilo object.
-     * @return
+     * @return height
      */
     public int getPituus() {
         return pituus;
@@ -160,7 +161,7 @@ public class Henkilo {
 
     /**
      * Returns the wight of the Henkilo object.
-     * @return
+     * @return weight
      */
     public double getPaino() {
         return paino;
@@ -168,7 +169,7 @@ public class Henkilo {
 
     /**
      * Returns the Gender of the Henkilo object.
-     * @return
+     * @return gender
      */
     public String getSukupuoli() {
         return sukupuoli;
