@@ -32,6 +32,20 @@ public class ResetProgress extends Service {
     private boolean isReseted = false;
     private static String CURRENT_USER_TIMEZONE = "Europe/Helsinki";
     private static final LocalTime midnight = LocalTime.MIDNIGHT;
+
+    /**
+     * Main activity launch the service
+     * Service override onStartCommand
+     * and create a new Thread with new interface for overriding the run method.
+     * Method running background loop for checking when helsinki-time hits midnight
+     * and resetting user eaten and burned kilocalories back to zero
+     * The service stops at midnight
+     *
+     * @param intent intent which keeped alive
+     * @param flags controlling the task
+     * @param startId
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         new Thread(new Runnable() {
@@ -42,6 +56,7 @@ public class ResetProgress extends Service {
                     String midnightToString = midnight.format(DateTimeFormatter.ofPattern("HH:mm"));
                     if(helsinki.equals(midnight)){
                         resetAllProgressData();
+                        stopSelf(1001);
                     }
 
                     try {
@@ -70,10 +85,9 @@ public class ResetProgress extends Service {
     }
 
     /**
-     * getCurrentTime returning time from java.time.instant
+     * getCurrentTime get the time from java.time.instant
      * and method fix the time to Helsinki timezone
-     * and return at localTime
-     * @return
+     * @return and return LocalTime-type
      */
 
     public LocalTime getCurrentTime(){
@@ -86,11 +100,13 @@ public class ResetProgress extends Service {
     }
 
     /**
-     * resetAllProgressData method find the user instance and reset all user progress
+     * resetAllProgressData method reset all user progress
+     * and save data
      */
     private void resetAllProgressData(){
         Henkilo.getInstance().nollaaSyodytKalorit();
         Henkilo.getInstance().resetSteps();
+        Henkilo.getInstance().resetCompensationSteps();
         saveData(Henkilo.getInstance());
 
     }
