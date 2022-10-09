@@ -137,9 +137,6 @@ public class MainActivity extends AppCompatActivity {
         timerStart();
     }
 
-    /**
-     * Is needed for stepCounter. -> register sensor listener when returned to app. turo
-     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -169,7 +166,10 @@ public class MainActivity extends AppCompatActivity {
     private void currentBurnedKcal() {
 
         float currentSteps = Henkilo.getInstance().getSteps();
+
         float currentCompensationSteps = Henkilo.getInstance().getCompensationSteps();
+        //Henkilo.getInstance().resetCompensationSteps();
+
         currentSteps += currentCompensationSteps;
         float stepsToMeter = (currentSteps * 0.75f);
         float burnedKilocalories = (stepsToMeter * kcalBurnPerMeter);
