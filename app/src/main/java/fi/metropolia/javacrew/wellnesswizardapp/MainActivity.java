@@ -194,10 +194,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (Henkilo.getInstance().getSyödytKalorit() == 0){
             eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() +" "+
-                    getResources().getString(R.string.kcal));
+                                         getResources().getString(R.string.kcal));
             eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
         }else{
-            eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() + getResources().getString(R.string.kcal));
+            eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() +" "+
+                                         getResources().getString(R.string.kcal));
             eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
         }
 
