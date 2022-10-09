@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this,ResetProgress.class);
         startService(serviceIntent);
 
-        checkIfUserExists();
+
 
         burnKilocaloriesAmount = findViewById(R.id.burnKilocalorieProgressBar);
         eatenKilocaloriesAmount = findViewById(R.id.eatenKilocaloriesProgressBar);
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         dailySteps.setText(basicText);
 
         currentPerson = Henkilo.getInstance();
+        checkIfUserExists();
         kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
 
         usernameTextView = findViewById(R.id.usernameTextView);
