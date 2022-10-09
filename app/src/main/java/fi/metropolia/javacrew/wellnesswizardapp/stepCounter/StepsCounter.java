@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+import fi.metropolia.javacrew.wellnesswizardapp.Henkilo;
 import fi.metropolia.javacrew.wellnesswizardapp.MainActivity;
 
 /**
@@ -61,6 +62,8 @@ public class StepsCounter implements SensorEventListener {
                 isFirstEventOfDay = false;
             }
             currentSteps = sensorEvent.values[0] - startSteps;
+
+        Henkilo.getInstance().setSteps(currentSteps);
 
         //}
     }

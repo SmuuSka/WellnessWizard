@@ -99,7 +99,7 @@ public class Henkilo {
      * @param compensationSteps
      */
     public void setCompensationSteps(float compensationSteps) {
-        this.compensationSteps += compensationSteps;
+        this.compensationSteps = compensationSteps;
     }
 
     /**
