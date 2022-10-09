@@ -34,7 +34,7 @@ import fi.metropolia.javacrew.wellnesswizardapp.trainingSessions.TrainingSession
 
 public class MainActivity extends AppCompatActivity {
 
-    private float kcalBurnPerMeter;
+    private float kcalBurnPerMeter, totalBurnedKilocalories;
     private NavigationBarView bottomNav;
     private TextView eatenKcalText, usernameTextView, eatenKcalSummaryTxt, burnKcalSummaryTxt, burnedKcalTextView, dailySteps;
     private ProgressBar burnKilocaloriesAmount, eatenKilocaloriesAmount;
@@ -93,10 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
         currentPerson = Henkilo.getInstance();
         checkIfUserExists();
+        timerStart();
         kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
 
         usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(Henkilo.getInstance().getNimi());
+
+
 
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACTIVITY_RECOGNITION) ==
@@ -132,10 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
-
         });
-
-        timerStart();
     }
 
     @Override
@@ -154,30 +154,35 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void showDailySteps(){
-        int dailyStepsToInt = (Math.round(Henkilo.getInstance().getSteps()));
+        int dailyStepsToInt = (Math.round(Henkilo.getInstance().getSteps())) + Math.round(Henkilo.getInstance().getCompensationSteps());
         String dailyStepsToString = Integer.toString(dailyStepsToInt);
         dailySteps.setText(dailyStepsToString + basicText);
     }
 
     /**
-     * currentBurnedKcal method get steps from user instance
-     * convert steps to travel meters and show current progress
+     * compensationStepsToBurnedKcal method get step from user instance
+     * convert steps to travelled meters and multiply it by avg kcal burn rate
+     * @return burned kilocalories for UI-elements
      */
 
-    private void currentBurnedKcal() {
+    private float stepsToBurnedKcal() {
 
         float currentSteps = Henkilo.getInstance().getSteps();
-
-        float currentCompensationSteps = Henkilo.getInstance().getCompensationSteps();
-        //Henkilo.getInstance().resetCompensationSteps();
-
-        currentSteps += currentCompensationSteps;
         float stepsToMeter = (currentSteps * 0.75f);
         float burnedKilocalories = (stepsToMeter * kcalBurnPerMeter);
+        return burnedKilocalories;
+    }
 
-        burnedKcalTextView.setText(burnedKilocalories + " Kcal");
-        int roundKilocalories = Math.round(burnedKilocalories);
-        burnKilocaloriesAmount.setProgress(roundKilocalories);
+    /**
+     * compensationStepsToBurnedKcal method get step from user instance
+     * convert steps to travelled meters and multiply it by avg kcal burn rate
+     * @return burned kilocalories for UI-elements
+     */
+    private float compensationStepsToBurnedKcal(){
+        float currentSteps = Henkilo.getInstance().getCompensationSteps();
+        float stepsToMeter = (currentSteps * 0.75f);
+        float burnedKilocalories = (stepsToMeter * kcalBurnPerMeter);
+        return burnedKilocalories;
     }
 
     /**
@@ -187,8 +192,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void currentEatenKcal(){
 
-        eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() + " Kcal");
-        eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
+        if (Henkilo.getInstance().getSyödytKalorit() == 0){
+            eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() +" "+
+                                         getResources().getString(R.string.kcal));
+            eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
+        }else{
+            eatenKcalText.setText(Henkilo.getInstance().getSyödytKalorit() +" "+
+                                         getResources().getString(R.string.kcal));
+            eatenKilocaloriesAmount.setProgress(Henkilo.getInstance().getSyödytKalorit());
+        }
+
+
     }
 
     /**
@@ -198,9 +212,13 @@ public class MainActivity extends AppCompatActivity {
         timer = new CountDownTimer(300000,10000) {
 
             public void onTick(long millisUntilFinished) {
-                currentBurnedKcal();
-                currentEatenKcal();
+                totalBurnedKilocalories = stepsToBurnedKcal() + compensationStepsToBurnedKcal();
+                System.out.println("Total calories burned: " + totalBurnedKilocalories);
                 showDailySteps();
+                burnKilocaloriesAmount.setProgress(Math.round(totalBurnedKilocalories));
+                burnedKcalTextView.setText(Float.toString(totalBurnedKilocalories) +" "+
+                                            getResources().getString(R.string.kcal));
+                currentEatenKcal();
             }
             public void onFinish() {
             }
