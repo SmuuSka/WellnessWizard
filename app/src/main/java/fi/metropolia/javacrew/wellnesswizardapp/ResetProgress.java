@@ -26,6 +26,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Reset progress class holding reset progress functionality
+ * The class looping in background and stops at midnight.
+ * The class rebooting after next time in app opening
  * @author Samu
  */
 public class ResetProgress extends Service {
