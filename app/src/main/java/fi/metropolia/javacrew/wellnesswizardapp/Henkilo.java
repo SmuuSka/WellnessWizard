@@ -122,7 +122,7 @@ public class Henkilo {
      * @param steps
      */
     public void setSteps(float steps) {
-        this.steps += steps;
+        this.steps = steps;
     }
 
     /**
