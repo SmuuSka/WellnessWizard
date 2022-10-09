@@ -94,6 +94,8 @@ public class TrainingDetailActivity extends AppCompatActivity {
             TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
             float compensationSteps = trainingDistance * 2;
             StepsCounter.getInstance().setSteps(compensationSteps);
+            //Henkilo.getInstance().setSteps(trainingDistance);
+            Henkilo.getInstance().setCompensationSteps(compensationSteps);
 
 
             Intent intent = new Intent(TrainingDetailActivity.this, TrainingSessionsLibraryActivity.class);
