@@ -132,7 +132,7 @@ public class UserCreateActivity extends AppCompatActivity {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException ex) {
-            Toast.makeText(this, "Height must be between 100cm - 250cm", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Height must be between 120cm - 250cm", Toast.LENGTH_SHORT).show();
             return null;
         }
 

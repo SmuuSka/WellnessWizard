@@ -22,11 +22,9 @@ public class StepsCounter implements SensorEventListener {
     private float startSteps;
     private  boolean isFirstEventOfDay;
 
-    private float compensationStepsAmount;
 
     private Sensor stepSensor;
 
-    MainActivity mainActivity;
 
     public static StepsCounter getInstance() {
         if (instance == null)
@@ -54,8 +52,7 @@ public class StepsCounter implements SensorEventListener {
      */
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        //if (sensorEvent.sensor == stepSensor) {
-            System.out.println(Float.toString(steps));
+
             steps = sensorEvent.values[0];
             if(isFirstEventOfDay){
                 startSteps = steps;
@@ -65,7 +62,6 @@ public class StepsCounter implements SensorEventListener {
 
         Henkilo.getInstance().setSteps(currentSteps);
 
-        //}
     }
 
     @Override
@@ -78,32 +74,7 @@ public class StepsCounter implements SensorEventListener {
         return currentSteps;
     }
 
-    /**
-     *
-     * @return currentStepsAmount
-     */
-    public float resetSteps() {
-        isFirstEventOfDay = true;
-        return currentSteps;
-    }
 
-    /**
-     *
-     * @param compensationSteps sets value for this param that is needed for counting energy usage of user.
-     */
-    public  void  setSteps(float compensationSteps){
-
-        compensationStepsAmount = compensationSteps;
-
-    }
-
-    /**
-     *
-     * @return compensationSteps value for later use.
-     */
-    public float GetCompensationStepAmount(){
-        return compensationStepsAmount;
-    }
 
 
 }
