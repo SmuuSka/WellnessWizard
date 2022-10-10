@@ -111,8 +111,8 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintTop_toBottomOf="@+id/burnKilocalorieProgressBar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/kilocaloriesEatenSummaryText"
@@ -123,8 +123,8 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78" />
+        app:layout_constraintTop_toBottomOf="@+id/eatenKilocaloriesProgressBar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/dailyStepsTextView"
