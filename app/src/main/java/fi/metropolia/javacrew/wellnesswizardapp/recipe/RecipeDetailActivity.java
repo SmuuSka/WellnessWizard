@@ -78,10 +78,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     /**
      *
      * @param view sends user imput values to later usage.
+     *             -> Henkilö - class is storage for that
      */
     public void SendEatenCalories(View view) {
-
-        RecipeInfoHolder.getInstance().SetIntakeCaloriesAmount(mealCaloriesAmount);
 
         Henkilo.getInstance().setSyödytKalorit(mealCaloriesAmount);
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WellnessWizardApp</string>
+    <string name="app_name">Wellness Wizard</string>
     <string name="welcome_n_please_insert_info">Insert rest of your data</string>
     <string name="sendButton">Create user</string>
     <string name="enter_your_weight">Enter your weight</string>

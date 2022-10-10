@@ -91,10 +91,8 @@ public class TrainingDetailActivity extends AppCompatActivity {
     public void SendDistance(View view) {
         try {
             trainingDistance = Float.parseFloat(((EditText) findViewById(R.id.editTextNumber_caloriesInput)).getText().toString());
-            TrainingSessionHolder.getInstance().SetTrainingDistance(trainingDistance);
             //Converted travel to 2x steps @Samu
             float compensationSteps = (trainingDistance * 0.75f) * 2;
-            StepsCounter.getInstance().setSteps(compensationSteps);
             Henkilo.getInstance().setCompensationSteps(compensationSteps);
 
 

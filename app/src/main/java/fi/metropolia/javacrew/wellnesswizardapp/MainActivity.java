@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
 
         usernameTextView = findViewById(R.id.usernameTextView);
-        usernameTextView.setText(Henkilo.getInstance().getNimi());
+        usernameTextView.setText("REARY TO START NEW LIFE \n \n  " + Henkilo.getInstance().getNimi());
 
 
 
@@ -213,11 +213,11 @@ public class MainActivity extends AppCompatActivity {
 
             public void onTick(long millisUntilFinished) {
                 totalBurnedKilocalories = stepsToBurnedKcal() + compensationStepsToBurnedKcal();
-                System.out.println("Total calories burned: " + totalBurnedKilocalories);
                 showDailySteps();
                 burnKilocaloriesAmount.setProgress(Math.round(totalBurnedKilocalories));
-                burnedKcalTextView.setText(Float.toString(totalBurnedKilocalories) +" "+
-                                            getResources().getString(R.string.kcal));
+                burnedKcalTextView.setText(Math.round(totalBurnedKilocalories) + " " + getResources().getString(R.string.kcal));
+                //burnedKcalTextView.setText(Float.toString( totalBurnedKilocalories) +" "+
+                 //                           getResources().getString(R.string.kcal));
                 currentEatenKcal();
             }
             public void onFinish() {

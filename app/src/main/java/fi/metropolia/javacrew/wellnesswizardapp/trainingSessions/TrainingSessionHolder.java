@@ -17,7 +17,6 @@ public class TrainingSessionHolder {
     private static final TrainingSessionHolder trainingInstance = new TrainingSessionHolder();
 
     private List<TrainingSession> trainings = new ArrayList();
-    private float trainingDistanceAmount;
 
     public static TrainingSessionHolder getInstance(){
         return trainingInstance;
@@ -47,20 +46,5 @@ public class TrainingSessionHolder {
         return trainings;
     }
 
-    /**
-     *
-     * @param distance sets trainingDistance value
-     */
-    public  void SetTrainingDistance(float distance){
-        trainingDistanceAmount = distance;
-    }
-
-    /**
-     *
-     * @return returns trainingDistance value for later use in MainActivity calculations
-     */
-    public  float GetTrainingDistance(){
-        return trainingDistanceAmount;
-    }
 
 }
