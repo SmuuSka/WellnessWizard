@@ -19,7 +19,8 @@
 
         <activity
             android:name=".Login.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,27 +29,33 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
         <service android:name=".ResetProgress"></service>
 
         <activity
             android:name=".trainingSessions.TrainingDetailActivity"
             android:exported="false"
-            android:parentActivityName=".trainingSessions.TrainingSessionsLibraryActivity" />
+            android:parentActivityName=".trainingSessions.TrainingSessionsLibraryActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".recipe.RecipeDetailActivity"
             android:exported="false"
-            android:parentActivityName=".recipe.RecipeLibraryActivity" />
+            android:parentActivityName=".recipe.RecipeLibraryActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".recipe.RecipeLibraryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".trainingSessions.TrainingSessionsLibraryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".UserCreateActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
