@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         kcalBurnPerMeter = (float) (0.001 * (float) Henkilo.getInstance().getPaino());
 
         usernameTextView = findViewById(R.id.usernameTextView);
-        usernameTextView.setText("REARY TO START NEW LIFE \n \n  " + Henkilo.getInstance().getNimi());
+        usernameTextView.setText("READY TO START NEW LIFE\n\n" + Henkilo.getInstance().getNimi());
 
 
 
