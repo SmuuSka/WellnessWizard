@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void showDailySteps(){
-        int dailyStepsToInt = (Math.round(Henkilo.getInstance().getSteps())) + Math.round(Henkilo.getInstance().getCompensationSteps());
+        int dailyStepsToInt = (Math.round(Henkilo.getInstance().getSteps()));
         String dailyStepsToString = Integer.toString(dailyStepsToInt);
         dailySteps.setText(dailyStepsToString + basicText);
     }
