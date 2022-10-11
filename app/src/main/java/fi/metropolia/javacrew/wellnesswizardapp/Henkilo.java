@@ -5,6 +5,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -36,6 +37,8 @@ public class Henkilo {
     private float compensationSteps;
     private HashMap<String, Double> uni;
 
+
+
     /**
      * the state of a new born Henkilo.
      * Constructor for person class.
@@ -58,6 +61,7 @@ public class Henkilo {
         this.syödytKalorit = 0;
         this.steps = 0;
         this.compensationSteps = 0;
+
     }
 
     /**

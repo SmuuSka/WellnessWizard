@@ -16,13 +16,13 @@ import androidx.annotation.RequiresApi;
 import com.google.gson.Gson;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
-
-@RequiresApi(api = Build.VERSION_CODES.O)
 
 /**
  * Reset progress class holding reset progress functionality
@@ -30,18 +30,20 @@ import java.time.format.DateTimeFormatter;
  * The class rebooting after next time in app opening
  * @author Samu
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ResetProgress extends Service {
     private boolean isReseted = false;
     private static String CURRENT_USER_TIMEZONE = "Europe/Helsinki";
     private static final LocalTime midnight = LocalTime.MIDNIGHT;
+    private LocalDate today = Instant.now().atZone(ZoneId.of(CURRENT_USER_TIMEZONE)).toLocalDate();
 
     /**
      * Main activity launch the service
      * Service override onStartCommand
      * and create a new Thread with new interface for overriding the run method.
-     * Method running background loop for checking when helsinki-time hits midnight
+     * Method running background loop for checking when today is before next day
      * and resetting user eaten and burned kilocalories back to zero
-     * The service stops at midnight
+     * The service stops after midnight
      *
      * @param intent intent which keeped alive
      * @param flags controlling the task
@@ -50,22 +52,16 @@ public class ResetProgress extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true){
-                    String helsinki = getCurrentTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-                    String midnightToString = midnight.format(DateTimeFormatter.ofPattern("HH:mm"));
-                    if(helsinki.equals(midnight)){
-                        resetAllProgressData();
-                        stopSelf(1001);
-                    }
-
-                    try {
-                        Thread.sleep(59000);
-                    }catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
+        new Thread(() -> {
+            while (true){
+                LocalDate dateEqual = Instant.now().atZone(ZoneId.of(CURRENT_USER_TIMEZONE)).toLocalDate();
+                if(today.isBefore(dateEqual)){
+                    resetAllProgressData();
+                }
+                try {
+                    Thread.sleep(60 * 1000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
                 }
             }
         }).start();
@@ -87,21 +83,6 @@ public class ResetProgress extends Service {
     }
 
     /**
-     * getCurrentTime get the time from java.time.instant
-     * and method fix the time to Helsinki timezone
-     * @return and return LocalTime-type
-     */
-
-    public LocalTime getCurrentTime(){
-        Instant now = Instant.now();
-        ZonedDateTime time = ZonedDateTime.ofInstant(now,
-                             ZoneId.of(CURRENT_USER_TIMEZONE));
-        LocalTime helsinki = time.toLocalTime();
-        return helsinki;
-
-    }
-
-    /**
      * resetAllProgressData method reset all user progress
      * and save data
      */
@@ -113,6 +94,10 @@ public class ResetProgress extends Service {
 
     }
 
+    /**
+     * Defined in Henkilo-class
+     * @param henkilo
+     */
     private void saveData(Henkilo henkilo) {
         //Might be for another acivity.
         SharedPreferences prefPut = getSharedPreferences("Henkilo", Activity.MODE_PRIVATE);
