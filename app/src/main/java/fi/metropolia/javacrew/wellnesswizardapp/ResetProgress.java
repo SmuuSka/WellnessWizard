@@ -56,7 +56,9 @@ public class ResetProgress extends Service {
             while (true){
                 LocalDate dateEqual = Instant.now().atZone(ZoneId.of(CURRENT_USER_TIMEZONE)).toLocalDate();
                 if(today.isBefore(dateEqual)){
+                    today = dateEqual;
                     resetAllProgressData();
+
                 }
                 try {
                     Thread.sleep(60 * 1000);
